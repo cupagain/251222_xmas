@@ -3,37 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <!-- Modified: Updated theme-color to match the dark background #0b1221 -->
     <meta name="theme-color" content="#0b1221">
     <title>Christmas Carnival 2025</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* Modern Font Stack */
-        /* Modified: Added html selector to set base background color, fixing white overscroll areas */
-        html {
-            background-color: #0b1221;
-        }
-
+        html { background-color: #0b1221; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", "Noto Sans SC", sans-serif;
             background-color: #0b1221;
-            /* High Quality Gradient Background */
             background: radial-gradient(circle at 50% 0%, #5b1111 0%, #2a0a0a 45%, #0b1221 100%);
             background-attachment: fixed;
             color: #ffffff;
             -webkit-font-smoothing: antialiased;
-            /* Ensure body fills the height */
             min-height: 100vh;
-            /* 🔥 修復重點：防止在 iOS iframe 內滾動到底部時，連帶拉動整個外部網頁 */
+            /* 🔥 [修復 1] 加回這個屬性，防止 iOS iframe 滾動時拉動到父視窗 */
             overscroll-behavior-y: none;
         }
 
-        /* Glass Panel */
         .glass-panel {
             background: rgba(30, 41, 59, 0.6);
             backdrop-filter: blur(12px);
@@ -42,7 +31,6 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
 
-        /* Typography & Effects */
         .text-gold {
             background: linear-gradient(180deg, #fff7ed 0%, #fbbf24 40%, #d97706 100%);
             -webkit-background-clip: text;
@@ -50,14 +38,12 @@
             text-shadow: 0 2px 10px rgba(251, 191, 36, 0.2);
         }
 
-        /* Gift Name Highlight */
         .text-gift {
-            color: #fca5a5; /* Soft Red/Pink */
+            color: #fca5a5;
             font-weight: 700;
             text-shadow: 0 0 10px rgba(252, 165, 165, 0.3);
         }
 
-        /* Number Highlight (Gold) */
         .highlight-number {
             color: #fbbf24;
             font-weight: 800;
@@ -66,7 +52,6 @@
             text-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
         }
 
-        /* Buttons */
         .btn-primary {
             background: linear-gradient(to bottom, #ef4444, #b91c1c);
             border: 1px solid #f87171;
@@ -85,7 +70,6 @@
             transform: scale(0.98);
         }
 
-        /* Rank Badges */
         .rank-badge {
             width: 24px;
             height: 24px;
@@ -100,11 +84,9 @@
         .rank-2 { background: #E2E8F0; color: #000; }
         .rank-3 { background: #B45309; color: #fff; }
         
-        /* Rank Text Colors */
-        .rank-top10 { color: #fbbf24; font-weight: 800; } /* 4-10 Gold */
-        .rank-other { color: #94a3b8; font-weight: 600; font-size: 13px; } /* 11+ Gray */
+        .rank-top10 { color: #fbbf24; font-weight: 800; }
+        .rank-other { color: #94a3b8; font-weight: 600; font-size: 13px; }
 
-        /* Row Styling */
         .row-top10 {
             background: linear-gradient(90deg, rgba(251, 191, 36, 0.05) 0%, transparent 100%);
             border-left: 3px solid rgba(251, 191, 36, 0.6);
@@ -113,7 +95,6 @@
             border-left: 3px solid transparent;
         }
 
-        /* Status Badge */
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -137,7 +118,6 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        /* Tab Active Bar */
         .active-bar {
             position: absolute;
             bottom: 0;
@@ -152,7 +132,6 @@
 </head>
 <body class="min-h-screen flex flex-col items-center pb-12">
 
-    <!-- Language Switcher -->
     <div class="w-full max-w-lg flex justify-end p-4">
         <div class="flex gap-0.5 bg-slate-800/80 rounded-lg p-1 border border-white/10 backdrop-blur-md">
             <button onclick="setLang('tw')" class="px-3 py-1.5 rounded-md text-xs font-bold transition lang-btn" data-lang="tw">繁</button>
@@ -162,10 +141,8 @@
         </div>
     </div>
 
-    <!-- Main Container -->
     <main class="w-full max-w-lg px-5 flex flex-col gap-6">
 
-        <!-- Header -->
         <div class="text-center mt-2">
             <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-900/40 border border-red-500/30 text-xs text-red-100 font-bold mb-3 tracking-wide shadow-lg">
                 <i class="fa-regular fa-clock"></i> <span id="t-date">12/22 00:00 - 12/25 23:59 (GMT+8)</span>
@@ -175,9 +152,7 @@
             </h1>
         </div>
 
-        <!-- 1. User Campaign Card -->
-        <div class="glass-panel rounded-2xl p-5 relative overflow-hidden">
-            <!-- Glow -->
+        <div class="glass-panel rounded-2xl p-5 relative">
             <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-600/30 rounded-full blur-[50px] pointer-events-none"></div>
 
             <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2 relative z-10">
@@ -185,17 +160,12 @@
                 <span id="t-user-title">送禮抽萬鑽</span>
             </h2>
 
-            <!-- Rules (Split into two lines) -->
             <div class="relative z-10 text-gray-100 text-[15px] leading-relaxed font-medium flex flex-col gap-1.5">
-                
-                <!-- Line 1: Send Gift -->
                 <div class="flex items-center flex-wrap">
                     <span id="t-user-rule-L1-pre">送</span>
                     <span id="t-user-gift-name" class="text-gift mx-1">「聖誕快熱」</span>
                     <span id="t-user-rule-L1-post">系列禮物</span>
                 </div>
-
-                <!-- Line 2: Win Prize -->
                 <div class="flex items-center flex-wrap">
                     <span id="t-user-rule-L2-pre">抽</span>
                     <span class="highlight-number mx-1">50</span> 
@@ -203,15 +173,12 @@
                     <span class="highlight-number mx-1">10,000</span> 
                     <span id="t-user-rule-L2-post">鑽石</span>
                 </div>
-                
-                <!-- Note (Small & Gray) -->
                 <div class="text-[12px] text-gray-400 font-normal mt-1 flex items-start gap-1">
                     <i class="fa-solid fa-circle-info mt-1 text-[10px]"></i>
                     <span id="t-rule-note">禮物不限鑽石，包含直播間與聊天室</span>
                 </div>
             </div>
 
-            <!-- Status & Primary CTA -->
             <div class="mt-5 pt-4 border-t border-white/10 flex flex-col gap-4">
                 <div class="flex items-center justify-between">
                     <span class="text-sm text-gray-300 font-bold" id="t-status-label">抽獎資格</span>
@@ -221,17 +188,15 @@
                     <div id="status-display" class="hidden status-badge"></div>
                 </div>
 
-                <a href="https://swag.live/livestream" target="_blank" class="btn-primary w-full py-2.5 rounded-xl font-bold text-center text-white transition transform active:scale-95 flex items-center justify-center gap-2 text-base">
+                <a href="https://swag.live/livestream" target="_blank" class="btn-primary w-full py-2.5 rounded-xl font-bold text-center text-white transition transform active:scale-95 flex items-center justify-center gap-2 text-base cursor-pointer">
                     <span id="t-btn-go-gift">前往送禮</span> <i class="fa-solid fa-chevron-right text-xs"></i>
                 </a>
             </div>
         </div>
 
-        <!-- 2. Host Campaign & Leaderboard -->
-        <div class="glass-panel rounded-2xl overflow-hidden flex flex-col">
+        <div class="glass-panel rounded-2xl flex flex-col">
             
-            <!-- Host Rules Header -->
-            <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-5 border-b border-white/10 relative">
+            <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-5 border-b border-white/10 relative rounded-t-2xl">
                 <div class="flex justify-between items-start mb-4">
                     <h3 class="text-xl font-bold text-white flex items-center gap-2 relative z-10">
                             <i class="fa-solid fa-crown text-red-400"></i>
@@ -261,13 +226,11 @@
                     </p>
                 </div>
 
-                <!-- Secondary CTA -->
-                <a href="https://creators.swag.live/dec-xmas" target="_blank" class="mt-5 btn-secondary w-full py-2.5 rounded-lg text-sm font-bold text-center transition block flex items-center justify-center gap-2">
+                <a href="https://creators.swag.live/dec-xmas" target="_blank" class="mt-5 btn-secondary w-full py-2.5 rounded-lg text-sm font-bold text-center transition block flex items-center justify-center gap-2 cursor-pointer">
                     <span id="t-btn-host-detail">主播獎勵詳情</span> <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                 </a>
             </div>
 
-            <!-- Tabs -->
             <div class="flex border-b border-white/10 bg-slate-900/50">
                 <button onclick="switchTab('vote')" id="tab-vote" class="flex-1 py-3.5 text-sm font-bold text-center relative transition-colors text-white">
                     <span id="t-tab-vote">粉絲票選榜</span>
@@ -279,15 +242,13 @@
                 </button>
             </div>
 
-            <!-- List Header -->
             <div class="flex justify-between px-4 py-2.5 text-[12px] text-gray-400 bg-black/20 font-bold uppercase tracking-wider">
-                <span class="w-8 text-center" id="t-col-rank">排名</span>
+                <span class="w-10 text-center" id="t-col-rank">排名</span>
                 <span class="flex-1 pl-3" id="t-col-host">主播</span>
                 <span class="text-right" id="t-col-score">票數</span>
             </div>
 
-            <!-- List Content -->
-            <div class="min-h-[350px] relative bg-slate-900/20">
+            <div class="min-h-[350px] relative bg-slate-900/20 rounded-b-2xl">
                 <div id="rank-loading" class="absolute inset-0 flex flex-col items-center justify-center z-10">
                     <div class="loader w-6 h-6 mb-2"></div>
                     <span class="text-xs text-gray-400" id="t-loading-data">Loading data...</span>
@@ -296,44 +257,38 @@
                     <i class="fa-solid fa-circle-exclamation mb-2 text-xl"></i>
                     <span class="text-xs">Data unavailable</span>
                 </div>
-                <div id="rank-list" class="divide-y divide-white/5 pb-1">
-                    <!-- Data Rows -->
-                </div>
+                
+                <div id="rank-list" class="pb-6">
+                    </div>
             </div>
         </div>
 
-        <!-- 3. Footer Rules -->
         <div class="px-2 pb-6">
             <h4 class="font-bold text-gray-200 mb-3 text-lg" id="t-footer-title">活動規則</h4>
             <ul class="text-[15px] text-gray-300 space-y-2 list-disc pl-5 leading-relaxed marker:text-gray-500" id="rules-list">
-                <!-- Injected via JS -->
-            </ul>
+                </ul>
         </div>
 
     </main>
 
     <script>
-        // --- Configuration ---
         const API_URL = "https://swag-campaign-api-905468082258.asia-east1.run.app";
         let currentLang = 'tw';
         let currentTab = 'vote';
         let apiData = null;
         let userId = null;
 
-        // --- Translations ---
         const TRANSLATIONS = {
             tw: {
                 date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
                 mainTitle: "聖誕節狂歡",
                 userTitle: "送禮抽萬鑽",
-                // Split User Rules
                 userRuleL1Pre: "送",
                 userGiftName: "「聖誕快熱」",
                 userRuleL1Post: "系列禮物",
                 userRuleL2Pre: "抽",
                 userRuleL2Mid: "位幸運兒獲得",
                 userRuleL2Post: "鑽石",
-                
                 ruleNote: "禮物不限鑽石，包含直播間與聊天室",
                 statusLabel: "抽獎資格",
                 checking: "查詢中...",
@@ -341,7 +296,6 @@
                 eligible: "符合資格",
                 notEligible: "尚未符合",
                 btnGoGift: "前往送禮",
-                
                 hostTitle: "聖誕女神雙榜",
                 hostRule1Pre: "送",
                 hostGiftName: "「喵電感應」",
@@ -350,7 +304,6 @@
                 hostRule2Post: " = 1 票 (每人對單一主播限投 3 票)",
                 hostRuleReward: "票選榜、總鑽榜前 10 名主播，可分別獲得獎勵！",
                 btnHostDetail: "主播獎勵詳情",
-                
                 tabVote: "粉絲票選榜",
                 tabDiamond: "喵電感應總鑽榜",
                 colRank: "排名",
@@ -371,14 +324,12 @@
                 date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
                 mainTitle: "圣诞节狂欢",
                 userTitle: "送礼抽万钻",
-                // Split User Rules
                 userRuleL1Pre: "送",
                 userGiftName: "“圣诞快热”",
                 userRuleL1Post: "系列礼物",
                 userRuleL2Pre: "抽",
                 userRuleL2Mid: "位幸运儿获得",
                 userRuleL2Post: "钻石",
-
                 ruleNote: "礼物不限钻石，包含直播间与聊天室",
                 statusLabel: "抽奖资格",
                 checking: "查询中...",
@@ -386,7 +337,6 @@
                 eligible: "符合资格",
                 notEligible: "尚未符合",
                 btnGoGift: "前往送礼",
-                
                 hostTitle: "圣诞女神双榜",
                 hostRule1Pre: "送",
                 hostGiftName: "“喵电感应”",
@@ -395,7 +345,6 @@
                 hostRule2Post: " = 1 票 (每人对单一主播限投 3 票)",
                 hostRuleReward: "票选榜、总钻榜前 10 名主播，可分别获得奖励！",
                 btnHostDetail: "主播奖励详情",
-                
                 tabVote: "粉丝票选榜",
                 tabDiamond: "喵电感应总钻榜",
                 colRank: "排名",
@@ -416,14 +365,12 @@
                 date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
                 mainTitle: "Christmas Carnival",
                 userTitle: "Win 10k Diamonds",
-                // Split User Rules
                 userRuleL1Pre: "Send ",
                 userGiftName: "\"Happy Xmas\"",
                 userRuleL1Post: " series gift.",
                 userRuleL2Pre: "",
                 userRuleL2Mid: " winners get ",
                 userRuleL2Post: " Diamonds!",
-
                 ruleNote: "Valid for all gift values in Live & Chat.",
                 statusLabel: "Status",
                 checking: "Checking...",
@@ -431,7 +378,6 @@
                 eligible: "Eligible",
                 notEligible: "Not Eligible",
                 btnGoGift: "Send Gifts",
-                
                 hostTitle: "Goddess Rankings",
                 hostRule1Pre: "Send ",
                 hostGiftName: "\"Christmas wreath\"",
@@ -440,7 +386,6 @@
                 hostRule2Post: " = 1 Vote (Max 3 per User/Host)",
                 hostRuleReward: "Top 10 hosts in Vote & Diamond Rank win rewards!",
                 btnHostDetail: "Reward Details",
-                
                 tabVote: "Fan Votes",
                 tabDiamond: "Wreath Diamond Rank",
                 colRank: "Rank",
@@ -461,14 +406,12 @@
                 date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
                 mainTitle: "クリスマスカーニバル",
                 userTitle: "1万ダイヤ当たる",
-                // Split User Rules
                 userRuleL1Pre: "",
                 userGiftName: "「メリークリスマス」",
                 userRuleL1Post: "シリーズを贈る。",
                 userRuleL2Pre: "抽選で",
                 userRuleL2Mid: "名様に",
                 userRuleL2Post: "ダイヤ！",
-
                 ruleNote: "ライブ・チャット対象、ダイヤ数不問。",
                 statusLabel: "抽選資格",
                 checking: "確認中...",
@@ -476,7 +419,6 @@
                 eligible: "達成しました",
                 notEligible: "未達成",
                 btnGoGift: "ギフトを贈る",
-                
                 hostTitle: "クリスマス女神Wランキング",
                 hostRule1Pre: "",
                 hostGiftName: "「クリスマスリース」",
@@ -485,7 +427,6 @@
                 hostRule2Post: " = 1 票 (1ライバーにつき3票まで)",
                 hostRuleReward: "投票＆ダイヤ各ランク上位10名のライバーに報酬あり！",
                 btnHostDetail: "報酬の詳細",
-                
                 tabVote: "投票ランク",
                 tabDiamond: "リース・ダイヤランク",
                 colRank: "順位",
@@ -504,64 +445,52 @@
             }
         };
 
-        // --- Utils ---
         function getUserId() {
-     // ✅ 新代碼：增強版讀取邏輯
-     // 1. 設定通用 Regex：不管參數在 ? 後面、# 後面，還是 & 中間都能抓到
-     const regex = /[?&/#]user_id=([^&#]*)/i;
-     
-     // 2. 嘗試直接讀取當前 iframe 網址
-     let href = window.location.href;
-     let match = href.match(regex);
-     if (match && match[1]) return match[1];
+            try {
+                const regex = /[?&/#]user_id=([^&#]*)/i;
+                let href = window.location.href;
+                let match = href.match(regex);
+                if (match && match[1]) return match[1];
 
-     // 3. 🔥 修復重點：嘗試解碼網址 (解決 src 被 encodeURIComponent 的情況)
-     try {
-         const decoded = decodeURIComponent(href);
-         match = decoded.match(regex);
-         if (match && match[1]) return match[1];
-     } catch(e) {}
+                try {
+                    const decoded = decodeURIComponent(href);
+                    match = decoded.match(regex);
+                    if (match && match[1]) return match[1];
+                } catch(e) {}
 
-     // 4. 🔥 修復重點：嘗試讀取父視窗網址 (解決 User ID 在主視窗而不在 iframe 的情況)
-     // 注意：這只有在同網域 (Same-Origin) 下有效，跨網域會自動被 catch 忽略
-     try {
-         if (window.self !== window.top && window.parent.location.href) {
-             match = window.parent.location.href.match(regex);
-             if (match && match[1]) return match[1];
-         }
-     } catch (e) {
-         console.log("Cross-origin frame detected, skipping parent check.");
-     }
+                try {
+                    if (window.self !== window.top && window.parent.location.href) {
+                        match = window.parent.location.href.match(regex);
+                        if (match && match[1]) return match[1];
+                    }
+                } catch (e) {}
 
-     return null;
-  }
+                return null;
+            } catch (e) {
+                console.error("ID Parse error", e);
+            }
+            return null;
+        }
 
-        // --- Rendering ---
+        // 🔥 [修復 4] 移除了不必要的 openLink 函數，因為已經改回標準 href 寫法
+
         function renderText() {
             const t = TRANSLATIONS[currentLang];
             
             document.getElementById('t-date').innerText = t.date;
             document.getElementById('t-main-title').innerText = t.mainTitle;
-            
-            // User Section (Two Lines)
             document.getElementById('t-user-title').innerText = t.userTitle;
-            
-            // Line 1
             document.getElementById('t-user-rule-L1-pre').innerText = t.userRuleL1Pre;
             document.getElementById('t-user-gift-name').innerText = t.userGiftName;
             document.getElementById('t-user-rule-L1-post').innerText = t.userRuleL1Post;
-            
-            // Line 2
             document.getElementById('t-user-rule-L2-pre').innerText = t.userRuleL2Pre;
             document.getElementById('t-user-rule-L2-mid').innerText = t.userRuleL2Mid;
             document.getElementById('t-user-rule-L2-post').innerText = t.userRuleL2Post;
-
             document.getElementById('t-rule-note').innerText = t.ruleNote;
             document.getElementById('t-status-label').innerText = t.statusLabel;
             document.getElementById('t-checking').innerText = t.checking;
             document.getElementById('t-btn-go-gift').innerText = t.btnGoGift;
             
-            // Host Section
             document.getElementById('t-host-title').innerText = t.hostTitle;
             document.getElementById('t-host-rule-1-pre').innerText = t.hostRule1Pre;
             document.getElementById('t-host-gift-name').innerText = t.hostGiftName;
@@ -571,19 +500,15 @@
             document.getElementById('t-host-rule-reward').innerText = t.hostRuleReward;
             document.getElementById('t-btn-host-detail').innerText = t.btnHostDetail;
 
-            // Leaderboard Headers
             document.getElementById('t-tab-vote').innerText = t.tabVote;
             document.getElementById('t-tab-diamond').innerText = t.tabDiamond;
             document.getElementById('t-col-rank').innerText = t.colRank;
             document.getElementById('t-col-host').innerText = t.colHost;
             
-            // Dynamic column header based on active tab
             const colScoreText = currentTab === 'vote' ? t.colScoreVote : t.colScoreDiamond;
             document.getElementById('t-col-score').innerText = colScoreText;
             
             document.getElementById('t-loading-data').innerText = t.loadingData;
-
-            // Footer
             document.getElementById('t-footer-title').innerText = t.footerTitle;
             const rulesList = document.getElementById('rules-list');
             rulesList.innerHTML = '';
@@ -593,7 +518,6 @@
                 rulesList.appendChild(li);
             });
 
-            // Lang Buttons
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 if(btn.dataset.lang === currentLang) {
                     btn.classList.add('bg-white', 'text-black');
@@ -614,7 +538,6 @@
             
             display.className = "status-badge";
 
-            // 1. 如果沒有 User ID，直接顯示登入提示 (不需要等 API)
             if (!userId) {
                 loading.classList.add('hidden');
                 display.classList.add('status-login');
@@ -623,18 +546,17 @@
                 return;
             }
 
-            // 2. 如果有 User ID 但資料尚未載入，保持 Loading 狀態，不顯示結果
             if (!apiData) {
                 loading.classList.remove('hidden');
                 display.classList.add('hidden');
                 return;
             }
 
-            // 3. 資料已載入，判定資格
             loading.classList.add('hidden');
             display.classList.remove('hidden');
 
-            if (apiData.user_info.is_eligible) {
+            // 🔥 [修復 5] 增加 Optional Chaining (?.) 避免 user_info 不存在時報錯
+            if (apiData.user_info?.is_eligible) {
                 display.classList.add('status-ok');
                 display.innerHTML = `<i class="fa-solid fa-check text-[10px]"></i> ${t.eligible}`;
             } else {
@@ -658,100 +580,4 @@
                 btnDiamond.classList.remove('text-white');
                 btnDiamond.querySelector('.active-bar').classList.add('hidden');
                 
-                document.getElementById('t-col-score').innerText = t.colScoreVote;
-            } else {
-                btnDiamond.classList.add('text-white');
-                btnDiamond.classList.remove('text-gray-400');
-                btnDiamond.querySelector('.active-bar').classList.remove('hidden');
-
-                btnVote.classList.add('text-gray-400');
-                btnVote.classList.remove('text-white');
-                btnVote.querySelector('.active-bar').classList.add('hidden');
-                
-                document.getElementById('t-col-score').innerText = t.colScoreDiamond;
-            }
-            renderRankList();
-        }
-
-        function renderRankList() {
-            const listContainer = document.getElementById('rank-list');
-            listContainer.innerHTML = '';
-
-            if (!apiData) return;
-            const data = currentTab === 'vote' ? apiData.vote_rank_top_20 : apiData.diamond_rank_top_20;
-
-            if (!data || data.length === 0) {
-                listContainer.innerHTML = `<div class="p-8 text-center text-gray-400 text-xs">No data available</div>`;
-                return;
-            }
-
-            data.forEach((item) => {
-                let rankClass = "rank-other";
-                let rowClass = "row-normal flex items-center px-4 py-2 hover:bg-white/5 transition border-b border-white/5 last:border-0";
-                
-                if (item.rank <= 10) {
-                    rowClass = "row-top10 flex items-center px-4 py-2 transition border-b border-white/5 last:border-0";
-                    if (item.rank > 3) {
-                         rankClass = "rank-top10"; // Gold color for ranks 4-10
-                    }
-                }
-
-                let badgeHTML = `<span class="${rankClass}">${item.rank}</span>`;
-                if (item.rank === 1) badgeHTML = `<div class="rank-badge rank-1">${item.rank}</div>`;
-                else if (item.rank === 2) badgeHTML = `<div class="rank-badge rank-2">${item.rank}</div>`;
-                else if (item.rank === 3) badgeHTML = `<div class="rank-badge rank-3">${item.rank}</div>`;
-
-                const row = document.createElement('div');
-                row.className = rowClass;
-                
-                row.innerHTML = `
-                    <div class="w-8 flex justify-center text-sm">
-                        ${badgeHTML}
-                    </div>
-                    <div class="flex-1 pl-3 pr-2 overflow-hidden">
-                        <div class="text-sm font-bold text-gray-100 truncate">${item.username}</div>
-                    </div>
-                    <div class="text-right font-mono font-bold text-white text-sm">
-                        ${item.value.toLocaleString()}
-                    </div>
-                `;
-                listContainer.appendChild(row);
-            });
-        }
-
-        async function fetchData() {
-            const loading = document.getElementById('rank-loading');
-            const error = document.getElementById('rank-error');
-            const queryId = userId || "guest_viewer";
-
-            try {
-                const res = await fetch(`${API_URL}/?user_id=${queryId}`, { credentials: 'omit' });
-                if (!res.ok) throw new Error("API Error");
-                apiData = await res.json();
-                
-                loading.classList.add('hidden');
-                error.classList.add('hidden');
-                renderStatusUI();
-                renderRankList();
-            } catch (err) {
-                loading.classList.add('hidden');
-                error.classList.remove('hidden');
-                renderStatusUI();
-            }
-        }
-
-        function setLang(lang) {
-            currentLang = lang;
-            renderText();
-            renderRankList();
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            userId = getUserId();
-            renderText();
-            fetchData();
-            setInterval(fetchData, 60000);
-        });
-    </script>
-</body>
-</html>
+                document.getElementById('t-col-score').innerText = t.colScoreVote
