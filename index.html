@@ -2,386 +2,455 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0f172a">
     <title>Christmas Carnival 2025</title>
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* Custom Styles & Animations */
+        /* Modern Font Stack */
         body {
-            font-family: 'Inter', 'Noto Sans TC', sans-serif;
-            background-color: #0f172a;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(220, 38, 38, 0.15) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(22, 163, 74, 0.15) 0%, transparent 20%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", "Noto Sans SC", sans-serif;
+            background-color: #0b1221;
+            /* High Quality Gradient Background */
+            background: radial-gradient(circle at 50% 0%, #5b1111 0%, #2a0a0a 45%, #0b1221 100%);
+            background-attachment: fixed;
             color: #ffffff;
-            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Snow Effect */
-        .snowflake {
-            position: fixed;
-            top: -10px;
-            color: #fff;
-            opacity: 0.8;
-            font-size: 1em;
-            user-select: none;
-            z-index: 1;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            to { transform: translateY(105vh); }
-        }
-
-        /* Glassmorphism Card */
-        .glass-card {
-            background: rgba(30, 41, 59, 0.7);
+        /* Glass Panel */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.6);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
 
-        /* Gradient Text */
-        .text-gradient-gold {
-            background: linear-gradient(to right, #fbbf24, #d97706);
+        /* Typography & Effects */
+        .text-gold {
+            background: linear-gradient(180deg, #fff7ed 0%, #fbbf24 40%, #d97706 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(251, 191, 36, 0.2);
+        }
+
+        .highlight-number {
+            color: #fbbf24;
+            font-weight: 800;
+            font-size: 1.3em;
+            margin: 0 2px;
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+        }
+
+        /* Buttons */
+        /* Primary CTA (Red, Filled) */
+        .btn-primary {
+            background: linear-gradient(to bottom, #ef4444, #b91c1c);
+            border: 1px solid #f87171;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
         
-        .text-gradient-red {
-            background: linear-gradient(to right, #f87171, #ef4444);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Secondary CTA (Gold, Outline) - Distinct but less prominent */
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid rgba(251, 191, 36, 0.5); /* Gold border */
+            color: #fbbf24;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .btn-secondary:active {
+            background: rgba(251, 191, 36, 0.1);
+            transform: scale(0.98);
         }
 
         /* Rank Badges */
-        .rank-1 { background: linear-gradient(135deg, #FFD700 0%, #B8860B 100%); color: #000; border: none; }
-        .rank-2 { background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%); color: #000; border: none; }
-        .rank-3 { background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%); color: #000; border: none; }
-        .rank-other { background: rgba(255,255,255,0.1); color: #fff; }
-
-        /* Loader */
-        .loader {
-            border: 3px solid rgba(255,255,255,0.1);
-            border-left-color: #dc2626;
-            border-radius: 50%;
+        .rank-badge {
             width: 24px;
             height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 14px;
+        }
+        .rank-1 { background: #FFD700; color: #000; box-shadow: 0 0 8px rgba(255, 215, 0, 0.5); }
+        .rank-2 { background: #E2E8F0; color: #000; }
+        .rank-3 { background: #B45309; color: #fff; }
+        .rank-other { color: #94a3b8; font-weight: 600; }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .status-login { background: rgba(255,255,255,0.08); color: #cbd5e1; }
+        .status-ok { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .status-no { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+        .loader {
+            border: 2px solid rgba(255,255,255,0.1);
+            border-left-color: #fbbf24;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
             animation: spin 1s linear infinite;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        [v-cloak] { display: none; }
+        
+        /* Tab Active Bar */
+        .active-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #fbbf24;
+            box-shadow: 0 0 8px #fbbf24;
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center pb-12 relative">
+<body class="min-h-screen flex flex-col items-center pb-12">
 
-    <!-- Language Switcher (Floating Top Right) -->
-    <div class="absolute top-4 right-4 z-50 flex gap-2">
-        <button onclick="setLang('tw')" class="lang-btn px-3 py-1 rounded-full text-xs font-bold bg-white/10 hover:bg-red-600 transition border border-white/20">繁</button>
-        <button onclick="setLang('cn')" class="lang-btn px-3 py-1 rounded-full text-xs font-bold bg-white/10 hover:bg-red-600 transition border border-white/20">简</button>
-        <button onclick="setLang('en')" class="lang-btn px-3 py-1 rounded-full text-xs font-bold bg-white/10 hover:bg-red-600 transition border border-white/20">EN</button>
-        <button onclick="setLang('jp')" class="lang-btn px-3 py-1 rounded-full text-xs font-bold bg-white/10 hover:bg-red-600 transition border border-white/20">日</button>
+    <!-- Language Switcher -->
+    <div class="w-full max-w-lg flex justify-end p-4">
+        <div class="flex gap-0.5 bg-slate-800/80 rounded-lg p-1 border border-white/10 backdrop-blur-md">
+            <button onclick="setLang('tw')" class="px-3 py-1.5 rounded-md text-xs font-bold transition lang-btn" data-lang="tw">繁</button>
+            <button onclick="setLang('cn')" class="px-3 py-1.5 rounded-md text-xs font-bold transition lang-btn" data-lang="cn">简</button>
+            <button onclick="setLang('en')" class="px-3 py-1.5 rounded-md text-xs font-bold transition lang-btn" data-lang="en">EN</button>
+            <button onclick="setLang('jp')" class="px-3 py-1.5 rounded-md text-xs font-bold transition lang-btn" data-lang="jp">日</button>
+        </div>
     </div>
 
     <!-- Main Container -->
-    <main class="w-full max-w-lg px-4 pt-12 z-10 flex flex-col gap-6">
+    <main class="w-full max-w-lg px-5 flex flex-col gap-6">
 
-        <!-- Hero Section -->
-        <div class="text-center space-y-2">
-            <div class="inline-block px-4 py-1 rounded-full bg-red-900/50 border border-red-500/30 text-red-200 text-sm font-semibold mb-2 shadow-[0_0_15px_rgba(220,38,38,0.5)]">
-                <i class="fa-regular fa-clock mr-1"></i> <span id="t-date">12/22 - 12/25 (GMT+8)</span>
+        <!-- Header -->
+        <div class="text-center mt-2">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-900/40 border border-red-500/30 text-xs text-red-100 font-bold mb-3 tracking-wide shadow-lg">
+                <i class="fa-regular fa-clock"></i> <span id="t-date">12/22 - 12/25 (GMT+8)</span>
             </div>
-            <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight drop-shadow-lg">
-                <span class="text-gradient-red block text-2xl mb-1" id="t-sub-title">Christmas</span>
-                <span class="text-gradient-gold" id="t-main-title">Carnival</span>
+            <h1 class="text-3xl sm:text-4xl font-black text-gold uppercase tracking-tight leading-none drop-shadow-2xl" id="t-main-title">
+                聖誕節狂歡派對
             </h1>
-            <p class="text-gray-300 text-sm px-4 leading-relaxed mt-4" id="t-desc">
-                Send Christmas gifts to win 10,000 diamonds!
-            </p>
         </div>
 
-        <!-- User Status Card -->
-        <div class="glass-card rounded-2xl p-6 relative overflow-hidden group">
-            <div class="absolute -top-10 -right-10 w-32 h-32 bg-red-600/20 rounded-full blur-3xl group-hover:bg-red-600/30 transition"></div>
+        <!-- 1. User Campaign Card -->
+        <div class="glass-panel rounded-2xl p-5 relative overflow-hidden">
+            <!-- Glow -->
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-600/30 rounded-full blur-[50px] pointer-events-none"></div>
+
+            <h2 class="text-xl font-bold text-white mb-3 flex items-center gap-2 relative z-10">
+                <i class="fa-solid fa-gift text-red-400"></i>
+                <span id="t-user-title">聖誕送禮抽獎</span>
+            </h2>
+
+            <!-- Rules (Size matched to Host section) -->
+            <div class="relative z-10 text-gray-100 text-[15px] leading-7 font-medium">
+                <span id="t-rule-text-1">送直播間或聊天室任一「聖誕快熱」禮物，抽</span>
+                <span class="inline-block">
+                    <span class="highlight-number">50</span> <span id="t-rule-suffix">位幸運兒獲得</span> <span class="highlight-number">10,000</span> <span id="t-rule-end">鑽石！</span>
+                </span>
+            </div>
+
+            <!-- Status & Primary CTA -->
+            <div class="mt-5 pt-4 border-t border-white/10 flex flex-col gap-4">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-300 font-bold" id="t-status-label">抽獎資格</span>
+                    <div id="status-loading" class="status-badge text-gray-400">
+                        <div class="loader"></div> <span id="t-checking">Checking...</span>
+                    </div>
+                    <div id="status-display" class="hidden status-badge"></div>
+                </div>
+
+                <a href="#" target="_blank" class="btn-primary w-full py-3 rounded-xl font-bold text-center text-white transition transform active:scale-95 flex items-center justify-center gap-2 text-lg">
+                    <span id="t-btn-go-gift">前往送禮</span> <i class="fa-solid fa-chevron-right text-sm"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- 2. Host Campaign & Leaderboard -->
+        <div class="glass-panel rounded-2xl overflow-hidden flex flex-col">
             
-            <div class="relative z-10">
-                <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-gift text-red-400"></i>
-                    <span id="t-status-title">Your Status</span>
-                </h3>
-                
-                <div id="user-loading" class="flex items-center gap-2 text-gray-400">
-                    <div class="loader"></div> <span id="t-loading">Checking...</span>
+            <!-- Host Rules Header -->
+            <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-5 border-b border-white/10 relative">
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="text-gold font-black text-xl uppercase italic tracking-wide">
+                        <i class="fa-solid fa-crown mr-1.5"></i> <span id="t-host-title">支援女神活動</span>
+                    </h3>
                 </div>
 
-                <div id="user-result" class="hidden">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-sm text-gray-400" id="t-user-id-label">User ID:</span>
-                        <span class="font-mono text-yellow-400 font-bold" id="display-user-id">--</span>
-                    </div>
-                    <div class="p-3 rounded-lg border flex items-center justify-center gap-2 font-bold text-lg transition-colors duration-300" id="status-box">
-                        <!-- Status text injected via JS -->
-                    </div>
+                <!-- Increased Font Size to match User Section (text-[15px]) -->
+                <div class="text-[15px] text-gray-100 space-y-2 leading-7 font-medium">
+                    <p class="flex items-start gap-2.5">
+                        <i class="fa-solid fa-caret-right text-yellow-500 mt-1.5"></i>
+                        <span id="t-host-rule-1">請投送『喵電感應』禮物</span>
+                    </p>
+                    <p class="flex items-start gap-2.5">
+                        <i class="fa-solid fa-caret-right text-yellow-500 mt-1.5"></i>
+                        <span id="t-host-rule-2">1 禮物 = 1 票 (每人對單一主播限投 3 票)</span>
+                    </p>
+                    <p class="flex items-start gap-2.5">
+                        <i class="fa-solid fa-star text-yellow-500 mt-1.5"></i>
+                        <span class="text-white font-bold" id="t-host-rule-reward">票數與總鑽前 10 名主播可獲高額獎勵！</span>
+                    </p>
                 </div>
+
+                <!-- Secondary CTA (Outline Style) -->
+                <a href="#" target="_blank" class="mt-5 btn-secondary w-full py-2.5 rounded-lg text-sm font-bold text-center transition block flex items-center justify-center gap-2">
+                    <span id="t-btn-host-detail">主播獎勵詳情</span> <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
             </div>
-        </div>
 
-        <!-- Leaderboard Section -->
-        <div class="glass-card rounded-2xl overflow-hidden min-h-[500px]">
             <!-- Tabs -->
-            <div class="flex border-b border-white/10">
-                <button onclick="switchTab('vote')" id="tab-vote" class="flex-1 py-4 text-sm font-bold text-center relative transition-colors bg-white/5 text-white">
-                    <span id="t-tab-vote">Fan Votes</span>
-                    <div class="active-indicator absolute bottom-0 left-0 w-full h-1 bg-red-500 shadow-[0_0_10px_#ef4444]"></div>
+            <div class="flex border-b border-white/10 bg-slate-900/50">
+                <button onclick="switchTab('vote')" id="tab-vote" class="flex-1 py-3.5 text-sm font-bold text-center relative transition-colors text-white">
+                    <span id="t-tab-vote">粉絲票選榜</span>
+                    <div class="active-bar"></div>
                 </button>
-                <button onclick="switchTab('diamond')" id="tab-diamond" class="flex-1 py-4 text-sm font-bold text-center relative transition-colors text-gray-400 hover:text-gray-200">
-                    <span id="t-tab-diamond">Diamond Rank</span>
-                    <div class="active-indicator absolute bottom-0 left-0 w-full h-1 bg-transparent hidden"></div>
+                <button onclick="switchTab('diamond')" id="tab-diamond" class="flex-1 py-3.5 text-sm font-bold text-center relative transition-colors text-gray-400">
+                    <span id="t-tab-diamond">總鑽排行榜</span>
+                    <div class="active-bar hidden"></div>
                 </button>
             </div>
 
-            <!-- Content Area -->
-            <div class="p-4">
-                <!-- Header -->
-                <div class="flex justify-between text-xs text-gray-500 uppercase tracking-wider mb-3 px-2">
-                    <span id="t-col-rank">Rank</span>
-                    <span id="t-col-host">Host</span>
-                    <span id="t-col-score">Score</span>
-                </div>
+            <!-- List Header -->
+            <div class="flex justify-between px-4 py-2.5 text-[12px] text-gray-400 bg-black/20 font-bold uppercase tracking-wider">
+                <span class="w-8 text-center" id="t-col-rank">排名</span>
+                <span class="flex-1 pl-3" id="t-col-host">主播</span>
+                <span class="text-right" id="t-col-score">數據</span>
+            </div>
 
-                <!-- Loading State -->
-                <div id="rank-loading" class="flex flex-col items-center justify-center py-12 text-gray-400 space-y-2">
-                    <div class="loader w-8 h-8"></div>
-                    <p class="text-xs" id="t-loading-rank">Updating Data...</p>
+            <!-- List Content -->
+            <div class="min-h-[350px] relative bg-slate-900/20">
+                <div id="rank-loading" class="absolute inset-0 flex flex-col items-center justify-center z-10">
+                    <div class="loader w-6 h-6 mb-2"></div>
+                    <span class="text-xs text-gray-400" id="t-loading-data">Loading data...</span>
                 </div>
-                
-                <!-- Error State -->
-                <div id="rank-error" class="hidden flex-col items-center justify-center py-8 text-red-400 text-center">
-                    <i class="fa-solid fa-triangle-exclamation text-2xl mb-2"></i>
-                    <p class="text-sm" id="t-error-msg">Failed to load data.</p>
+                <div id="rank-error" class="hidden absolute inset-0 flex flex-col items-center justify-center text-red-300 p-4 text-center z-10">
+                    <i class="fa-solid fa-circle-exclamation mb-2 text-xl"></i>
+                    <span class="text-xs">Data unavailable</span>
                 </div>
-
-                <!-- List Container -->
-                <div id="rank-list" class="space-y-2 hidden">
-                    <!-- Javascript will populate this -->
-                </div>
-                
-                <!-- Empty State -->
-                <div id="rank-empty" class="hidden text-center py-10 text-gray-500 text-sm">
-                    No data available yet.
+                <div id="rank-list" class="divide-y divide-white/5 pb-2">
+                    <!-- Data Rows -->
                 </div>
             </div>
         </div>
 
-        <!-- Rules / Footer -->
-        <div class="text-xs text-gray-500 space-y-2 px-4 leading-relaxed border-t border-white/10 pt-4">
-            <h4 class="font-bold text-gray-400 uppercase mb-1" id="t-rules-title">Campaign Rules</h4>
-            <ul class="list-disc pl-4 space-y-1" id="rules-list">
-                <!-- Rules injected via JS -->
+        <!-- 3. Footer Rules -->
+        <div class="px-2 pb-6">
+            <h4 class="font-bold text-gray-200 mb-3 text-lg" id="t-footer-title">詳細活動說明</h4>
+            <!-- Increased font size to text-[15px] and lighter color -->
+            <ul class="text-[15px] text-gray-300 space-y-2 list-disc pl-5 leading-relaxed marker:text-gray-500" id="rules-list">
+                <!-- Injected via JS -->
             </ul>
         </div>
 
     </main>
 
-    <!-- Snowflake Container -->
-    <div id="snow-container"></div>
-
     <script>
-        // --- 1. Translations (i18n) ---
+        // --- Configuration ---
+        const API_URL = "https://swag-campaign-api-905468082258.asia-east1.run.app";
+        let currentLang = 'tw';
+        let currentTab = 'vote';
+        let apiData = null;
+        let userId = null;
+
+        // --- Translations ---
         const TRANSLATIONS = {
             tw: {
-                date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
-                subTitle: "聖誕節",
-                mainTitle: "狂歡派對",
-                desc: "送直播間或聊天室任一「聖誕快熱」禮物，抽 50 位幸運兒獲得 10,000 鑽石！",
-                statusTitle: "抽獎資格查詢",
-                loading: "查詢中...",
-                userIdLabel: "用戶 ID:",
-                eligible: "🎉 符合資格",
+                date: "12/22 - 12/25 (GMT+8)",
+                mainTitle: "聖誕節狂歡派對",
+                userTitle: "聖誕送禮抽獎",
+                ruleText1: "送直播間或聊天室任一「聖誕快熱」禮物，抽",
+                ruleSuffix: "位幸運兒獲得",
+                ruleEnd: "鑽石！",
+                statusLabel: "抽獎資格",
+                checking: "查詢中...",
+                loginStatus: "請登入檢視",
+                eligible: "符合資格",
                 notEligible: "尚未符合",
-                loginReq: "請登入檢視",
+                btnGoGift: "前往送禮",
+                hostTitle: "支援女神活動",
+                hostRule1: "請投送『喵電感應』禮物",
+                hostRule2: "1 禮物 = 1 票 (每人對單一主播限投 3 票)",
+                hostRuleReward: "票數與總鑽前 10 名主播可獲高額獎勵！",
+                btnHostDetail: "主播獎勵詳情",
                 tabVote: "粉絲票選榜",
                 tabDiamond: "總鑽排行榜",
                 colRank: "排名",
                 colHost: "主播",
                 colScore: "票數 / 鑽石",
-                loadingRank: "數據更新中...",
-                errorMsg: "資料載入失敗，請稍後再試",
-                rulesTitle: "活動說明",
+                loadingData: "數據更新中...",
+                footerTitle: "詳細活動說明",
                 rules: [
                     "僅限送「聖誕快熱」系列禮物，包含直播間與聊天室。",
-                    "主播投票與總鑽榜僅限「喵電感應」禮物 (1禮物=1票，每人對同一主播限投3票)。",
+                    "主播投票與總鑽榜僅限「喵電感應」禮物。",
                     "資料至少需 5 分鐘更新時間。",
                     "鑽石將於活動結束後 5 個工作日內抽出並發放。",
                     "資料需登入帳號以正確顯示，最終結果以官方計算為準。"
                 ]
             },
             cn: {
-                date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
-                subTitle: "圣诞节",
-                mainTitle: "狂欢派对",
-                desc: "送直播间或聊天室任一“圣诞快热”礼物，抽 50 位幸运儿获得 10,000 钻石！",
-                statusTitle: "抽奖资格查询",
-                loading: "查询中...",
-                userIdLabel: "用户 ID:",
-                eligible: "🎉 符合资格",
+                date: "12/22 - 12/25 (GMT+8)",
+                mainTitle: "圣诞节狂欢派对",
+                userTitle: "圣诞送礼抽奖",
+                ruleText1: "送直播间或聊天室任一“圣诞快热”礼物，抽",
+                ruleSuffix: "位幸运儿获得",
+                ruleEnd: "钻石！",
+                statusLabel: "抽奖资格",
+                checking: "查询中...",
+                loginStatus: "请登录查看",
+                eligible: "符合资格",
                 notEligible: "尚未符合",
-                loginReq: "请登录查看",
+                btnGoGift: "前往送礼",
+                hostTitle: "支援女神活动",
+                hostRule1: "请投送“喵电感应”礼物",
+                hostRule2: "1 礼物 = 1 票 (每人对单一主播限投 3 票)",
+                hostRuleReward: "票数与总钻前 10 名主播可获高额奖励！",
+                btnHostDetail: "主播奖励详情",
                 tabVote: "粉丝票选榜",
                 tabDiamond: "总钻排行榜",
                 colRank: "排名",
                 colHost: "主播",
                 colScore: "票数 / 钻石",
-                loadingRank: "数据更新中...",
-                errorMsg: "数据加载失败，请稍后再试",
-                rulesTitle: "活动说明",
+                loadingData: "数据更新中...",
+                footerTitle: "详细活动说明",
                 rules: [
                     "仅限送“圣诞快热”系列礼物，包含直播间与聊天室。",
-                    "主播投票与总钻榜仅限“喵电感应”礼物 (1礼物=1票，每人对同一主播限投3票)。",
+                    "主播投票与总钻榜仅限“喵电感应”礼物。",
                     "数据至少需 5 分钟更新时间。",
                     "钻石将于活动结束后 5 个工作日内抽出并发放。",
                     "数据需登录账号以正确显示，最终结果以官方计算为准。"
                 ]
             },
             en: {
-                date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
-                subTitle: "Christmas",
-                mainTitle: "Carnival",
-                desc: "Send 'Christmas Heat' gifts for a chance to win 10,000 diamonds (50 winners)!",
-                statusTitle: "Eligibility Check",
-                loading: "Checking...",
-                userIdLabel: "User ID:",
-                eligible: "🎉 Eligible",
+                date: "12/22 - 12/25 (GMT+8)",
+                mainTitle: "Christmas Carnival",
+                userTitle: "Xmas Gift Lucky Draw",
+                ruleText1: "Send 'Christmas Heat' gifts for a chance to win. ",
+                ruleSuffix: "winners get",
+                ruleEnd: "Diamonds!",
+                statusLabel: "Status",
+                checking: "Checking...",
+                loginStatus: "Login Required",
+                eligible: "Eligible",
                 notEligible: "Not Eligible",
-                loginReq: "Login Required",
-                tabVote: "Fan Vote Rank",
+                btnGoGift: "Send Gifts",
+                hostTitle: "Support Goddess",
+                hostRule1: "Send 'Meow Telepathy' Gifts",
+                hostRule2: "1 Gift = 1 Vote (Max 3 votes per Host)",
+                hostRuleReward: "Top 10 Hosts win high rewards!",
+                btnHostDetail: "Reward Details",
+                tabVote: "Fan Votes",
                 tabDiamond: "Diamond Rank",
                 colRank: "Rank",
                 colHost: "Host",
-                colScore: "Votes / Diamonds",
-                loadingRank: "Updating Data...",
-                errorMsg: "Failed to load data, please try again.",
-                rulesTitle: "Campaign Rules",
+                colScore: "Score",
+                loadingData: "Loading...",
+                footerTitle: "Campaign Rules",
                 rules: [
-                    "Valid only for 'Christmas Heat' series gifts in live rooms or chat rooms.",
-                    "Rankings are based on 'Meow Telepathy' gifts only (1 Gift = 1 Vote, Max 3 votes per host/user).",
-                    "Data updates with a minimum 5-minute delay.",
-                    "Diamonds will be drawn and distributed within 5 business days after the event.",
-                    "Official calculation is final. Login required to view personal status."
+                    "Valid for 'Christmas Heat' gifts in Live or Chat.",
+                    "Leaderboard counts 'Meow Telepathy' gifts only.",
+                    "Data updates with 5-min delay.",
+                    "Prizes distributed within 5 business days.",
+                    "Official calculation is final."
                 ]
             },
             jp: {
-                date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
-                subTitle: "クリスマス",
-                mainTitle: "カーニバル",
-                desc: "「クリスマス・ヒート」ギフトを贈って、10,000ダイヤを当てよう（抽選で50名様）！",
-                statusTitle: "抽選資格確認",
-                loading: "確認中...",
-                userIdLabel: "ユーザーID:",
-                eligible: "🎉 資格あり",
-                notEligible: "資格なし",
-                loginReq: "ログインが必要",
-                tabVote: "投票ランキング",
-                tabDiamond: "ダイヤランキング",
+                date: "12/22 - 12/25 (GMT+8)",
+                mainTitle: "クリスマスパーティー",
+                userTitle: "Xmasギフト抽選",
+                ruleText1: "「クリスマス・ヒート」を贈って抽選に参加。",
+                ruleSuffix: "名様に",
+                ruleEnd: "ダイヤ！",
+                statusLabel: "抽選資格",
+                checking: "確認中...",
+                loginStatus: "ログインが必要",
+                eligible: "達成しました",
+                notEligible: "未達成",
+                btnGoGift: "ギフトを贈る",
+                hostTitle: "女神応援イベント",
+                hostRule1: "「ミャオ・テレパシー」を贈ろう",
+                hostRule2: "1ギフト=1票 (各ライバー最大3票)",
+                hostRuleReward: "票数・ダイヤ上位10名に高額報酬！",
+                btnHostDetail: "報酬の詳細",
+                tabVote: "投票ランク",
+                tabDiamond: "ダイヤランク",
                 colRank: "順位",
                 colHost: "ライバー",
-                colScore: "票数 / ダイヤ",
-                loadingRank: "データ更新中...",
-                errorMsg: "データの読み込みに失敗しました。",
-                rulesTitle: "イベント詳細",
+                colScore: "票 / ダイヤ",
+                loadingData: "読み込み中...",
+                footerTitle: "イベント詳細",
                 rules: [
-                    "ライブ配信またはチャットルームでの「クリスマス・ヒート」シリーズギフトのみ対象。",
-                    "ランキングは「ミャオ・テレパシー」ギフトのみ対象（1ギフト=1票、1ライバーにつき最大3票まで）。",
-                    "データの更新には少なくとも5分の遅延があります。",
-                    "ダイヤはイベント終了後5営業日以内に抽選・配布されます。",
-                    "公式の集計結果を最終とします。ステータス確認にはログインが必要です。"
+                    "「クリスマス・ヒート」シリーズのみ対象。",
+                    "ランキングは「ミャオ・テレパシー」のみ対象。",
+                    "データ更新には約5分の遅延があります。",
+                    "ダイヤは終了後5営業日以内に配布。",
+                    "公式の集計を最終とします。"
                 ]
             }
         };
 
-        // --- 2. State & Config ---
-        const API_URL = "https://swag-campaign-api-905468082258.asia-east1.run.app";
-        let currentLang = 'tw';
-        let currentTab = 'vote'; // 'vote' or 'diamond'
-        let apiData = null; // Store fetched data
-        let userId = null;
-
-        // --- 3. Utilities ---
-
-        // Robust User ID Parser
+        // --- Utils ---
         function getUserId() {
             try {
                 const url = window.location.href;
-                
-                // 1. Check Query Param (?user_id=)
                 const urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('user_id')) return urlParams.get('user_id');
-
-                // 2. Check Hash (#user_id=) - Common for simple iframe/spa
-                const hashParams = new URLSearchParams(window.location.hash.substring(1)); // remove #
+                const hashParams = new URLSearchParams(window.location.hash.substring(1));
                 if (hashParams.has('user_id')) return hashParams.get('user_id');
-
-                // 3. Regex Fallback (Brute force search in full string)
-                // Matches user_id= followed by valid characters until & or end of string
                 const regexMatch = url.match(/[?#&]user_id=([a-zA-Z0-9\-_]+)/);
                 if (regexMatch && regexMatch[1]) return regexMatch[1];
-
-            } catch (e) {
-                console.error("ID Parse Error", e);
-            }
+            } catch (e) {}
             return null;
         }
 
-        function createSnowflakes() {
-            const container = document.getElementById('snow-container');
-            const count = 20; // Number of snowflakes
-            for (let i = 0; i < count; i++) {
-                const flake = document.createElement('div');
-                flake.classList.add('snowflake');
-                flake.innerHTML = '•'; // Simple dot
-                flake.style.left = Math.random() * 100 + 'vw';
-                flake.style.animationDuration = (Math.random() * 3 + 5) + 's'; // 5-8s duration
-                flake.style.fontSize = (Math.random() * 10 + 10) + 'px';
-                flake.style.opacity = Math.random() * 0.5 + 0.3;
-                flake.style.animationDelay = Math.random() * 5 + 's';
-                container.appendChild(flake);
-            }
-        }
-
-        // --- 4. Logic & Rendering ---
-
+        // --- Rendering ---
         function renderText() {
             const t = TRANSLATIONS[currentLang];
             
-            // Text Content
             document.getElementById('t-date').innerText = t.date;
-            document.getElementById('t-sub-title').innerText = t.subTitle;
             document.getElementById('t-main-title').innerText = t.mainTitle;
-            document.getElementById('t-desc').innerText = t.desc;
-            document.getElementById('t-status-title').innerText = t.statusTitle;
-            document.getElementById('t-loading').innerText = t.loading;
-            document.getElementById('t-user-id-label').innerText = t.userIdLabel;
             
+            // User Section
+            document.getElementById('t-user-title').innerText = t.userTitle;
+            document.getElementById('t-rule-text-1').innerText = t.ruleText1;
+            document.getElementById('t-rule-suffix').innerText = t.ruleSuffix;
+            document.getElementById('t-rule-end').innerText = t.ruleEnd;
+            document.getElementById('t-status-label').innerText = t.statusLabel;
+            document.getElementById('t-checking').innerText = t.checking;
+            document.getElementById('t-btn-go-gift').innerText = t.btnGoGift;
+            
+            // Host Section
+            document.getElementById('t-host-title').innerText = t.hostTitle;
+            document.getElementById('t-host-rule-1').innerText = t.hostRule1;
+            document.getElementById('t-host-rule-2').innerText = t.hostRule2;
+            document.getElementById('t-host-rule-reward').innerText = t.hostRuleReward;
+            document.getElementById('t-btn-host-detail').innerText = t.btnHostDetail;
+
+            // Leaderboard
             document.getElementById('t-tab-vote').innerText = t.tabVote;
             document.getElementById('t-tab-diamond').innerText = t.tabDiamond;
-            
             document.getElementById('t-col-rank').innerText = t.colRank;
             document.getElementById('t-col-host').innerText = t.colHost;
             document.getElementById('t-col-score').innerText = t.colScore;
-            
-            document.getElementById('t-loading-rank').innerText = t.loadingRank;
-            document.getElementById('t-error-msg').innerText = t.errorMsg;
-            document.getElementById('t-rules-title').innerText = t.rulesTitle;
+            document.getElementById('t-loading-data').innerText = t.loadingData;
 
-            // Rules List
+            // Footer
+            document.getElementById('t-footer-title').innerText = t.footerTitle;
             const rulesList = document.getElementById('rules-list');
             rulesList.innerHTML = '';
             t.rules.forEach(rule => {
@@ -390,113 +459,96 @@
                 rulesList.appendChild(li);
             });
 
-            // Re-render status box if data exists
-            if (userId && apiData) updateStatusUI(apiData.user_info);
-            else if (!userId) updateStatusUI(null);
+            // Lang Buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if(btn.dataset.lang === currentLang) {
+                    btn.classList.add('bg-white', 'text-black');
+                    btn.classList.remove('text-white', 'hover:bg-white/20');
+                } else {
+                    btn.classList.remove('bg-white', 'text-black');
+                    btn.classList.add('text-white', 'hover:bg-white/20');
+                }
+            });
+
+            renderStatusUI();
+        }
+
+        function renderStatusUI() {
+            const t = TRANSLATIONS[currentLang];
+            const display = document.getElementById('status-display');
+            display.className = "status-badge";
+
+            if (!userId) {
+                display.classList.add('status-login');
+                display.innerHTML = `<i class="fa-solid fa-lock text-[10px]"></i> ${t.loginStatus}`;
+            } else if (apiData && apiData.user_info.is_eligible) {
+                display.classList.add('status-ok');
+                display.innerHTML = `<i class="fa-solid fa-check text-[10px]"></i> ${t.eligible}`;
+            } else {
+                display.classList.add('status-no');
+                display.innerHTML = `<i class="fa-solid fa-xmark text-[10px]"></i> ${t.notEligible}`;
+            }
+            document.getElementById('status-loading').classList.add('hidden');
+            display.classList.remove('hidden');
         }
 
         function switchTab(tab) {
             currentTab = tab;
-            
-            // UI Toggle
             const btnVote = document.getElementById('tab-vote');
             const btnDiamond = document.getElementById('tab-diamond');
             
-            // Reset Styles
-            [btnVote, btnDiamond].forEach(btn => {
-                btn.classList.remove('text-white', 'bg-white/5');
-                btn.classList.add('text-gray-400');
-                btn.querySelector('.active-indicator').classList.add('hidden');
-            });
+            // Logic to switch active classes and the highlight bar
+            if (tab === 'vote') {
+                btnVote.classList.add('text-white');
+                btnVote.classList.remove('text-gray-400');
+                btnVote.querySelector('.active-bar').classList.remove('hidden');
 
-            // Activate Selected
-            const activeBtn = tab === 'vote' ? btnVote : btnDiamond;
-            activeBtn.classList.remove('text-gray-400');
-            activeBtn.classList.add('text-white', 'bg-white/5');
-            activeBtn.querySelector('.active-indicator').classList.remove('hidden');
-
-            renderRankList();
-        }
-
-        function updateStatusUI(userInfo) {
-            const t = TRANSLATIONS[currentLang];
-            const loadingDiv = document.getElementById('user-loading');
-            const resultDiv = document.getElementById('user-result');
-            const displayId = document.getElementById('display-user-id');
-            const statusBox = document.getElementById('status-box');
-
-            loadingDiv.classList.add('hidden');
-            resultDiv.classList.remove('hidden');
-
-            if (!userInfo) {
-                // No User ID (Guest)
-                displayId.innerText = "Guest";
-                statusBox.className = "p-3 rounded-lg border flex items-center justify-center gap-2 font-bold text-lg bg-gray-700/50 border-gray-600 text-gray-400";
-                statusBox.innerHTML = `<i class="fa-solid fa-lock"></i> ${t.loginReq}`;
-                return;
-            }
-
-            displayId.innerText = userInfo.user_id;
-
-            if (userInfo.is_eligible) {
-                statusBox.className = "p-3 rounded-lg border flex items-center justify-center gap-2 font-bold text-lg bg-green-900/40 border-green-500/50 text-green-400 shadow-[0_0_10px_rgba(34,197,94,0.2)]";
-                statusBox.innerHTML = t.eligible;
+                btnDiamond.classList.add('text-gray-400');
+                btnDiamond.classList.remove('text-white');
+                btnDiamond.querySelector('.active-bar').classList.add('hidden');
             } else {
-                statusBox.className = "p-3 rounded-lg border flex items-center justify-center gap-2 font-bold text-lg bg-red-900/20 border-red-500/30 text-gray-300";
-                statusBox.innerHTML = t.notEligible;
+                btnDiamond.classList.add('text-white');
+                btnDiamond.classList.remove('text-gray-400');
+                btnDiamond.querySelector('.active-bar').classList.remove('hidden');
+
+                btnVote.classList.add('text-gray-400');
+                btnVote.classList.remove('text-white');
+                btnVote.querySelector('.active-bar').classList.add('hidden');
             }
+            renderRankList();
         }
 
         function renderRankList() {
             const listContainer = document.getElementById('rank-list');
-            const emptyState = document.getElementById('rank-empty');
-            
             listContainer.innerHTML = '';
 
             if (!apiData) return;
-
             const data = currentTab === 'vote' ? apiData.vote_rank_top_20 : apiData.diamond_rank_top_20;
 
             if (!data || data.length === 0) {
-                listContainer.classList.add('hidden');
-                emptyState.classList.remove('hidden');
+                listContainer.innerHTML = `<div class="p-8 text-center text-gray-400 text-xs">No data available</div>`;
                 return;
             }
 
-            listContainer.classList.remove('hidden');
-            emptyState.classList.add('hidden');
-
             data.forEach((item) => {
-                // Determine Rank Style
                 let rankClass = "rank-other";
-                let rankText = item.rank;
-                let iconHtml = '';
-                
-                if (item.rank === 1) { rankClass = "rank-1"; iconHtml = '<i class="fa-solid fa-crown text-xs mb-1"></i>'; }
-                else if (item.rank === 2) { rankClass = "rank-2"; }
-                else if (item.rank === 3) { rankClass = "rank-3"; }
+                if (item.rank === 1) rankClass = "rank-1";
+                else if (item.rank === 2) rankClass = "rank-2";
+                else if (item.rank === 3) rankClass = "rank-3";
 
                 const row = document.createElement('div');
-                row.className = "flex items-center p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition";
-                
-                // Format Number (add commas)
-                const formattedValue = item.value.toLocaleString();
-                
+                row.className = "flex items-center px-4 py-3 hover:bg-white/5 transition";
                 row.innerHTML = `
-                    <div class="w-10 flex flex-col items-center justify-center">
-                        ${iconHtml}
-                        <div class="w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold ${rankClass}">
-                            ${rankText}
+                    <div class="w-8 flex justify-center">
+                        <div class="rank-badge ${rankClass}">
+                            ${item.rank}
                         </div>
                     </div>
-                    <div class="flex-1 px-3 flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-xs overflow-hidden border border-white/20">
-                            <i class="fa-regular fa-user text-gray-400"></i>
-                        </div>
-                        <span class="font-bold text-sm text-white truncate max-w-[120px]">${item.username}</span>
+                    <div class="flex-1 pl-3 pr-2 overflow-hidden">
+                        <div class="text-sm font-bold text-gray-100 truncate">${item.username}</div>
                     </div>
-                    <div class="text-right font-mono text-yellow-500 font-bold text-sm">
-                        ${formattedValue}
+                    <div class="text-right font-mono font-bold text-yellow-500 text-sm">
+                        ${item.value.toLocaleString()}
                     </div>
                 `;
                 listContainer.appendChild(row);
@@ -504,78 +556,38 @@
         }
 
         async function fetchData() {
-            const loadingRank = document.getElementById('rank-loading');
-            const rankError = document.getElementById('rank-error');
-            const rankList = document.getElementById('rank-list');
-            
-            loadingRank.classList.remove('hidden');
-            rankError.classList.add('hidden');
-            rankList.classList.add('hidden');
-
-            // Default dummy ID if none provided, to at least get leaderboard data
-            // The API requires ?user_id=... to return the JSON structure, 
-            // even if we only want the leaderboard.
+            const loading = document.getElementById('rank-loading');
+            const error = document.getElementById('rank-error');
             const queryId = userId || "guest_viewer";
 
             try {
-                // Fetch with credentials: omit (IMPORTANT)
-                const response = await fetch(`${API_URL}/?user_id=${queryId}`, {
-                    method: 'GET',
-                    credentials: 'omit', // Prevents cookie issues in iframes
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                if (!response.ok) throw new Error(`API Error: ${response.status}`);
-
-                apiData = await response.json();
+                const res = await fetch(`${API_URL}/?user_id=${queryId}`, { credentials: 'omit' });
+                if (!res.ok) throw new Error("API Error");
+                apiData = await res.json();
                 
-                // Update UI
-                loadingRank.classList.add('hidden');
-                
-                // Only update user status UI if we actually have a real user ID
-                if (userId) {
-                    updateStatusUI(apiData.user_info);
-                } else {
-                    updateStatusUI(null);
-                }
-
+                loading.classList.add('hidden');
+                error.classList.add('hidden');
+                renderStatusUI();
                 renderRankList();
-
             } catch (err) {
-                console.error("Fetch Failed:", err);
-                loadingRank.classList.add('hidden');
-                rankError.classList.remove('hidden');
-                document.getElementById('t-error-msg').innerText = `${TRANSLATIONS[currentLang].errorMsg} (${err.message})`;
-                
-                // Still allow trying to render UI states
-                updateStatusUI(null);
+                loading.classList.add('hidden');
+                error.classList.remove('hidden');
+                renderStatusUI();
             }
         }
 
         function setLang(lang) {
             currentLang = lang;
             renderText();
+            renderRankList();
         }
 
-        // --- 5. Initialization ---
         window.addEventListener('DOMContentLoaded', () => {
-            createSnowflakes();
-            
-            // 1. Get User ID
             userId = getUserId();
-            
-            // 2. Initial Render (Text)
             renderText();
-            
-            // 3. Fetch Data
             fetchData();
-            
-            // 4. Auto Refresh (every 60s)
             setInterval(fetchData, 60000);
         });
-
     </script>
 </body>
 </html>
