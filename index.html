@@ -175,17 +175,23 @@
                 <span id="t-user-title">送禮抽萬鑽</span>
             </h2>
 
-            <!-- Rules (Improved Layout) -->
-            <div class="relative z-10 text-gray-100 text-[15px] leading-relaxed font-medium">
-                <!-- Main Rule -->
-                <div class="mb-1">
-                    <span id="t-rule-main">送</span>
-                    <span id="t-user-gift-name" class="text-gift mx-0.5">「聖誕快熱」</span>
-                    <span id="t-rule-text">系列禮物，抽</span>
-                    <span class="highlight-number">50</span> 
-                    <span id="t-rule-suffix">位幸運兒獲得</span> 
-                    <span class="highlight-number">10,000</span> 
-                    <span id="t-rule-end">鑽石</span>
+            <!-- Rules (Split into two lines) -->
+            <div class="relative z-10 text-gray-100 text-[15px] leading-relaxed font-medium flex flex-col gap-1.5">
+                
+                <!-- Line 1: Send Gift -->
+                <div class="flex items-center flex-wrap">
+                    <span id="t-user-rule-L1-pre">送</span>
+                    <span id="t-user-gift-name" class="text-gift mx-1">「聖誕快熱」</span>
+                    <span id="t-user-rule-L1-post">系列禮物</span>
+                </div>
+
+                <!-- Line 2: Win Prize -->
+                <div class="flex items-center flex-wrap">
+                    <span id="t-user-rule-L2-pre">抽</span>
+                    <span class="highlight-number mx-1">50</span> 
+                    <span id="t-user-rule-L2-mid">位幸運兒獲得</span> 
+                    <span class="highlight-number mx-1">10,000</span> 
+                    <span id="t-user-rule-L2-post">鑽石</span>
                 </div>
                 
                 <!-- Note (Small & Gray) -->
@@ -217,8 +223,9 @@
             <!-- Host Rules Header -->
             <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-5 border-b border-white/10 relative">
                 <div class="flex justify-between items-start mb-3">
-                    <h3 class="text-gold font-black text-xl uppercase tracking-wide">
-                        <i class="fa-solid fa-crown mr-1.5"></i> <span id="t-host-title">應援聖誕女神</span>
+                    <!-- CHANGED: Color back to white -->
+                    <h3 class="text-white font-black text-xl uppercase tracking-wide">
+                        <i class="fa-solid fa-crown mr-1.5 text-red-400"></i> <span id="t-host-title">聖誕女神雙榜</span>
                     </h3>
                 </div>
 
@@ -228,7 +235,7 @@
                         <span>
                             <span id="t-host-rule-1-pre">送</span>
                             <span id="t-host-gift-name" class="text-gift">「喵電感應」</span>
-                            <span id="t-host-rule-1-post">禮物，投票與累積總鑽石</span>
+                            <span id="t-host-rule-1-post">禮物，投票與衝刺總鑽石</span>
                         </span>
                     </p>
                     <p class="flex items-start gap-2.5">
@@ -240,7 +247,7 @@
                     </p>
                     <p class="flex items-start gap-2.5">
                         <i class="fa-solid fa-star text-yellow-500 mt-1.5"></i>
-                        <span class="text-white font-bold" id="t-host-rule-reward">票數與總鑽前 10 名主播可獲高額獎勵！</span>
+                        <span class="text-white font-bold" id="t-host-rule-reward">票選榜、總鑽榜前 10 名主播，可分別獲得獎勵！</span>
                     </p>
                 </div>
 
@@ -257,7 +264,7 @@
                     <div class="active-bar"></div>
                 </button>
                 <button onclick="switchTab('diamond')" id="tab-diamond" class="flex-1 py-3.5 text-sm font-bold text-center relative transition-colors text-gray-400">
-                    <span id="t-tab-diamond">總鑽排行榜</span>
+                    <span id="t-tab-diamond">喵電感應總鑽榜</span>
                     <div class="active-bar hidden"></div>
                 </button>
             </div>
@@ -266,7 +273,7 @@
             <div class="flex justify-between px-4 py-2.5 text-[12px] text-gray-400 bg-black/20 font-bold uppercase tracking-wider">
                 <span class="w-8 text-center" id="t-col-rank">排名</span>
                 <span class="flex-1 pl-3" id="t-col-host">主播</span>
-                <span class="text-right" id="t-col-score">數據</span>
+                <span class="text-right" id="t-col-score">票數</span>
             </div>
 
             <!-- List Content -->
@@ -309,11 +316,14 @@
                 date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
                 mainTitle: "聖誕節狂歡",
                 userTitle: "送禮抽萬鑽",
-                ruleMain: "送",
+                // Split User Rules
+                userRuleL1Pre: "送",
                 userGiftName: "「聖誕快熱」",
-                ruleText: "系列禮物，抽",
-                ruleSuffix: "位幸運兒獲得",
-                ruleEnd: "鑽石",
+                userRuleL1Post: "系列禮物",
+                userRuleL2Pre: "抽",
+                userRuleL2Mid: "位幸運兒獲得",
+                userRuleL2Post: "鑽石",
+                
                 ruleNote: "禮物不限鑽石，包含直播間與聊天室",
                 statusLabel: "抽獎資格",
                 checking: "查詢中...",
@@ -322,25 +332,26 @@
                 notEligible: "尚未符合",
                 btnGoGift: "前往送禮",
                 
-                hostTitle: "應援聖誕女神",
+                hostTitle: "聖誕女神雙榜",
                 hostRule1Pre: "送",
                 hostGiftName: "「喵電感應」",
-                hostRule1Post: "禮物，投票與累積總鑽石",
+                hostRule1Post: "禮物，投票與衝刺總鑽石",
                 hostRule2Gift: "1 喵電感應",
                 hostRule2Post: " = 1 票 (每人對單一主播限投 3 票)",
-                hostRuleReward: "票數與總鑽前 10 名主播可獲高額獎勵！",
+                hostRuleReward: "票選榜、總鑽榜前 10 名主播，可分別獲得獎勵！",
                 btnHostDetail: "主播獎勵詳情",
                 
                 tabVote: "粉絲票選榜",
-                tabDiamond: "總鑽排行榜",
+                tabDiamond: "喵電感應總鑽榜",
                 colRank: "排名",
                 colHost: "主播",
-                colScore: "票數 / 鑽石",
+                colScoreVote: "票數",
+                colScoreDiamond: "鑽石",
                 loadingData: "數據更新中...",
                 footerTitle: "活動規則",
                 rules: [
                     "僅限送「聖誕快熱」系列禮物，方符合抽獎資格，禮物包含直播間與聊天室。",
-                    "主播投票與總鑽榜僅限「喵電感應」禮物。",
+                    "主播投票與總鑽榜僅計算「喵電感應」禮物。",
                     "資料至少需 5 分鐘更新時間。",
                     "抽獎鑽石將於活動結束後 5 個工作日內抽出並發放。",
                     "最終結果以官方計算為準。"
@@ -350,11 +361,14 @@
                 date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
                 mainTitle: "圣诞节狂欢",
                 userTitle: "送礼抽万钻",
-                ruleMain: "送",
+                // Split User Rules
+                userRuleL1Pre: "送",
                 userGiftName: "“圣诞快热”",
-                ruleText: "系列礼物，抽",
-                ruleSuffix: "位幸运儿获得",
-                ruleEnd: "钻石",
+                userRuleL1Post: "系列礼物",
+                userRuleL2Pre: "抽",
+                userRuleL2Mid: "位幸运儿获得",
+                userRuleL2Post: "钻石",
+
                 ruleNote: "礼物不限钻石，包含直播间与聊天室",
                 statusLabel: "抽奖资格",
                 checking: "查询中...",
@@ -363,25 +377,26 @@
                 notEligible: "尚未符合",
                 btnGoGift: "前往送礼",
                 
-                hostTitle: "应援圣诞女神",
+                hostTitle: "圣诞女神双榜",
                 hostRule1Pre: "送",
                 hostGiftName: "“喵电感应”",
-                hostRule1Post: "礼物，投票与积累总钻石",
+                hostRule1Post: "礼物，投票与冲刺总钻石",
                 hostRule2Gift: "1 喵电感应",
                 hostRule2Post: " = 1 票 (每人对单一主播限投 3 票)",
-                hostRuleReward: "票数与总钻前 10 名主播可获高额奖励！",
+                hostRuleReward: "票选榜、总钻榜前 10 名主播，可分别获得奖励！",
                 btnHostDetail: "主播奖励详情",
                 
                 tabVote: "粉丝票选榜",
-                tabDiamond: "总钻排行榜",
+                tabDiamond: "喵电感应总钻榜",
                 colRank: "排名",
                 colHost: "主播",
-                colScore: "票数 / 钻石",
+                colScoreVote: "票数",
+                colScoreDiamond: "钻石",
                 loadingData: "数据更新中...",
                 footerTitle: "活动规则",
                 rules: [
                     "仅限送“圣诞快热”系列礼物，方符合抽奖资格，礼物包含直播间与聊天室。",
-                    "主播投票与总钻榜仅限“喵电感应”礼物。",
+                    "主播投票与总钻榜仅计算“喵电感应”礼物。",
                     "数据至少需 5 分钟更新时间。",
                     "抽奖钻石将于活动结束后 5 个工作日内抽出并发放。",
                     "最终结果以官方计算为准。"
@@ -391,11 +406,14 @@
                 date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
                 mainTitle: "Christmas Carnival",
                 userTitle: "Win 10k Diamonds",
-                ruleMain: "Send ",
+                // Split User Rules
+                userRuleL1Pre: "Send ",
                 userGiftName: "\"Happy Xmas\"",
-                ruleText: " series gift to win. ",
-                ruleSuffix: "winners get",
-                ruleEnd: "Diamonds",
+                userRuleL1Post: " series gift.",
+                userRuleL2Pre: "",
+                userRuleL2Mid: " winners get ",
+                userRuleL2Post: " Diamonds!",
+
                 ruleNote: "Valid for all gift values in Live & Chat.",
                 statusLabel: "Status",
                 checking: "Checking...",
@@ -404,25 +422,26 @@
                 notEligible: "Not Eligible",
                 btnGoGift: "Send Gifts",
                 
-                hostTitle: "Support Goddess",
+                hostTitle: "Goddess Rankings",
                 hostRule1Pre: "Send ",
                 hostGiftName: "\"Christmas wreath\"",
-                hostRule1Post: " to vote & accumulate diamonds",
+                hostRule1Post: " to vote & sprint total diamonds",
                 hostRule2Gift: "1 Christmas wreath",
                 hostRule2Post: " = 1 Vote (Max 3 per User/Host)",
-                hostRuleReward: "Top 10 Hosts win high rewards!",
+                hostRuleReward: "Top 10 hosts in Vote & Diamond Rank win rewards!",
                 btnHostDetail: "Reward Details",
                 
                 tabVote: "Fan Votes",
-                tabDiamond: "Diamond Rank",
+                tabDiamond: "Wreath Diamond Rank",
                 colRank: "Rank",
                 colHost: "Host",
-                colScore: "Score",
+                colScoreVote: "Votes",
+                colScoreDiamond: "Diamonds",
                 loadingData: "Loading...",
                 footerTitle: "Campaign Rules",
                 rules: [
                     "Only 'Happy Xmas' series gifts qualify. Includes Live & Chat gifts.",
-                    "Leaderboard counts 'Christmas wreath' gifts only.",
+                    "Host Rankings only calculate 'Christmas wreath' gifts.",
                     "Data updates with 5-min delay.",
                     "Prize diamonds will be distributed within 5 business days after event.",
                     "Official calculation is final."
@@ -432,11 +451,14 @@
                 date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
                 mainTitle: "クリスマスカーニバル",
                 userTitle: "1万ダイヤ当たる",
-                ruleMain: "",
+                // Split User Rules
+                userRuleL1Pre: "",
                 userGiftName: "「メリークリスマス」",
-                ruleText: "シリーズを贈って抽選に参加。",
-                ruleSuffix: "名様に",
-                ruleEnd: "ダイヤ！",
+                userRuleL1Post: "シリーズを贈る。",
+                userRuleL2Pre: "抽選で",
+                userRuleL2Mid: "名様に",
+                userRuleL2Post: "ダイヤ！",
+
                 ruleNote: "ライブ・チャット対象、ダイヤ数不問。",
                 statusLabel: "抽選資格",
                 checking: "確認中...",
@@ -445,25 +467,26 @@
                 notEligible: "未達成",
                 btnGoGift: "ギフトを贈る",
                 
-                hostTitle: "聖なる女神応援",
+                hostTitle: "クリスマス女神Wランキング",
                 hostRule1Pre: "",
                 hostGiftName: "「クリスマスリース」",
-                hostRule1Post: "を贈って投票＆ダイヤ蓄積",
+                hostRule1Post: "を贈って投票＆ダイヤダッシュ",
                 hostRule2Gift: "1 クリスマスリース",
                 hostRule2Post: " = 1 票 (1ライバーにつき3票まで)",
-                hostRuleReward: "票数・ダイヤ上位10名に高額報酬！",
+                hostRuleReward: "投票＆ダイヤ各ランク上位10名のライバーに報酬あり！",
                 btnHostDetail: "報酬の詳細",
                 
                 tabVote: "投票ランク",
-                tabDiamond: "ダイヤランク",
+                tabDiamond: "リース・ダイヤランク",
                 colRank: "順位",
                 colHost: "ライバー",
-                colScore: "票 / ダイヤ",
+                colScoreVote: "票数",
+                colScoreDiamond: "ダイヤ",
                 loadingData: "読み込み中...",
                 footerTitle: "イベント規則",
                 rules: [
                     "「メリークリスマス」シリーズのみ対象。ライブ・チャット含む。",
-                    "ランキングは「クリスマスリース」のみ対象。",
+                    "各ランキングは「クリスマスリース」のみ集計します。",
                     "データ更新には約5分の遅延があります。",
                     "賞品ダイヤは終了後5営業日以内に配布されます。",
                     "公式の集計を最終とします。"
@@ -492,13 +515,19 @@
             document.getElementById('t-date').innerText = t.date;
             document.getElementById('t-main-title').innerText = t.mainTitle;
             
-            // User Section
+            // User Section (Two Lines)
             document.getElementById('t-user-title').innerText = t.userTitle;
-            document.getElementById('t-rule-main').innerText = t.ruleMain;
+            
+            // Line 1
+            document.getElementById('t-user-rule-L1-pre').innerText = t.userRuleL1Pre;
             document.getElementById('t-user-gift-name').innerText = t.userGiftName;
-            document.getElementById('t-rule-text').innerText = t.ruleText;
-            document.getElementById('t-rule-suffix').innerText = t.ruleSuffix;
-            document.getElementById('t-rule-end').innerText = t.ruleEnd;
+            document.getElementById('t-user-rule-L1-post').innerText = t.userRuleL1Post;
+            
+            // Line 2
+            document.getElementById('t-user-rule-L2-pre').innerText = t.userRuleL2Pre;
+            document.getElementById('t-user-rule-L2-mid').innerText = t.userRuleL2Mid;
+            document.getElementById('t-user-rule-L2-post').innerText = t.userRuleL2Post;
+
             document.getElementById('t-rule-note').innerText = t.ruleNote;
             document.getElementById('t-status-label').innerText = t.statusLabel;
             document.getElementById('t-checking').innerText = t.checking;
@@ -519,7 +548,11 @@
             document.getElementById('t-tab-diamond').innerText = t.tabDiamond;
             document.getElementById('t-col-rank').innerText = t.colRank;
             document.getElementById('t-col-host').innerText = t.colHost;
-            document.getElementById('t-col-score').innerText = t.colScore;
+            
+            // Dynamic column header based on active tab
+            const colScoreText = currentTab === 'vote' ? t.colScoreVote : t.colScoreDiamond;
+            document.getElementById('t-col-score').innerText = colScoreText;
+            
             document.getElementById('t-loading-data').innerText = t.loadingData;
 
             // Footer
@@ -569,6 +602,7 @@
             currentTab = tab;
             const btnVote = document.getElementById('tab-vote');
             const btnDiamond = document.getElementById('tab-diamond');
+            const t = TRANSLATIONS[currentLang];
             
             if (tab === 'vote') {
                 btnVote.classList.add('text-white');
@@ -578,6 +612,8 @@
                 btnDiamond.classList.add('text-gray-400');
                 btnDiamond.classList.remove('text-white');
                 btnDiamond.querySelector('.active-bar').classList.add('hidden');
+                
+                document.getElementById('t-col-score').innerText = t.colScoreVote;
             } else {
                 btnDiamond.classList.add('text-white');
                 btnDiamond.classList.remove('text-gray-400');
@@ -586,6 +622,8 @@
                 btnVote.classList.add('text-gray-400');
                 btnVote.classList.remove('text-white');
                 btnVote.querySelector('.active-bar').classList.add('hidden');
+                
+                document.getElementById('t-col-score').innerText = t.colScoreDiamond;
             }
             renderRankList();
         }
@@ -620,7 +658,7 @@
 
                 const row = document.createElement('div');
                 row.className = rowClass;
-                // Important: Value text is now WHITE (text-white) to reduce gold clutter
+                
                 row.innerHTML = `
                     <div class="w-8 flex justify-center text-sm">
                         ${badgeHTML}
