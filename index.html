@@ -196,9 +196,9 @@
                     <div id="status-display" class="hidden status-badge"></div>
                 </div>
 
-                <a href="https://swag.live/livestream" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 rounded-xl font-bold text-center text-white transition transform active:scale-95 flex items-center justify-center gap-2 text-base cursor-pointer">
+                <button onclick="smartNavigate('https://swag.live/livestream')" class="btn-primary w-full py-2.5 rounded-xl font-bold text-center text-white transition transform active:scale-95 flex items-center justify-center gap-2 text-base cursor-pointer">
                     <span id="t-btn-go-gift">前往送禮</span> <i class="fa-solid fa-chevron-right text-xs"></i>
-                </a>
+                </button>
             </div>
         </div>
 
@@ -234,9 +234,9 @@
                     </p>
                 </div>
 
-                <a href="https://creators.swag.live/dec-xmas" target="_blank" rel="noopener noreferrer" class="mt-5 btn-secondary w-full py-2.5 rounded-lg text-sm font-bold text-center transition block flex items-center justify-center gap-2 cursor-pointer">
+                <button onclick="smartNavigate('https://creators.swag.live/dec-xmas')" class="mt-5 btn-secondary w-full py-2.5 rounded-lg text-sm font-bold text-center transition block flex items-center justify-center gap-2 cursor-pointer">
                     <span id="t-btn-host-detail">主播獎勵詳情</span> <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                </a>
+                </button>
             </div>
 
             <div class="flex border-b border-white/10 bg-slate-900/50">
@@ -274,7 +274,7 @@
         <div class="px-2 pb-6">
             <h4 class="font-bold text-gray-200 mb-3 text-lg" id="t-footer-title">活動規則</h4>
             <ul class="text-[15px] text-gray-300 space-y-2 list-disc pl-5 leading-relaxed marker:text-gray-500" id="rules-list">
-                </ul>
+            </ul>
         </div>
 
     </main>
@@ -285,7 +285,7 @@
         let currentTab = 'vote';
         let apiData = null;
         let userId = null;
-        let fetchInterval = null; // 用來儲存計時器 ID
+        let fetchInterval = null; 
 
         const TRANSLATIONS = {
             tw: {
@@ -453,6 +453,32 @@
                 ]
             }
         };
+
+        // 🔥 [解決 1] 智慧跳轉函數：優先嘗試跳出父框架，失敗才嘗試新分頁，最後才在原 iframe 跳轉
+        function smartNavigate(url) {
+            // 1. 優先嘗試：Break out (跳出父框架)
+            // 這是體驗最好的，因為按「上一頁」可以直接回到您的活動頁
+            try {
+                if (window.top !== window.self) {
+                    window.top.location.href = url;
+                    return; 
+                }
+            } catch (e) {
+                // 如果被 sandbox 封鎖了 allow-top-navigation，會報錯，我們就繼續往下嘗試
+                console.log("Top nav blocked, trying new tab...");
+            }
+
+            // 2. 次要嘗試：新分頁 (New Tab)
+            // 至少不會把用戶困在 iframe 裡
+            const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+            if (newWindow && !newWindow.closed && typeof newWindow.closed !== "undefined") {
+                return;
+            }
+
+            // 3. 最後手段：當前 iframe 內跳轉
+            // 只有在上面兩個都被封鎖時才執行。雖然體驗較差，但總比點了沒反應好。
+            window.location.href = url;
+        }
 
         function getUserId() {
             try {
