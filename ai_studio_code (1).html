@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Carnival 2025</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Custom Styles & Animations */
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #0f172a;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(220, 38, 38, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(22, 163, 74, 0.15) 0%, transparent 20%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Snow Effect */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: #fff;
+            opacity: 0.8;
+            font-size: 1em;
+            user-select: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh); }
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Gradient Text */
+        .text-gradient-gold {
+            background: linear-gradient(to right, #fbbf24, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .text-gradient-red {
+            background: linear-gradient(to right, #f87171, #ef4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Rank Badges */
+        .rank-1 { background: linear-gradient(135deg, #FFD700 0%, #B8860B 100%); color: #000; border: none; }
+        .rank-2 { background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%); color: #000; border: none; }
+        .rank-3 { background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%); color: #000; border: none; }
+        .rank-other { background: rgba(255,255,255,0.1); color: #fff; }
+
+        /* Loader */
+        .loader {
+            border: 3px solid rgba(255,255,255,0.1);
+            border-left-color: #dc2626;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        [v-cloak] { display: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center pb-12 relative">
+
+    <!-- Language Switcher (Floating Top Right) -->
+    <div class="absolute top-4 right-4 z-50 flex gap-2">
+        <button onclick="setLang('tw')" class="lang-btn px-3 py-1 rounded-full text-xs font-bold bg-white/10 hover:bg-red-600 transition border border-white/20">繁</button>
+        <button onclick="setLang('cn')" class="lang-btn px-3 py-1 rounded-full text-xs font-bold bg-white/10 hover:bg-red-600 transition border border-white/20">简</button>
+        <button onclick="setLang('en')" class="lang-btn px-3 py-1 rounded-full text-xs font-bold bg-white/10 hover:bg-red-600 transition border border-white/20">EN</button>
+        <button onclick="setLang('jp')" class="lang-btn px-3 py-1 rounded-full text-xs font-bold bg-white/10 hover:bg-red-600 transition border border-white/20">日</button>
+    </div>
+
+    <!-- Main Container -->
+    <main class="w-full max-w-lg px-4 pt-12 z-10 flex flex-col gap-6">
+
+        <!-- Hero Section -->
+        <div class="text-center space-y-2">
+            <div class="inline-block px-4 py-1 rounded-full bg-red-900/50 border border-red-500/30 text-red-200 text-sm font-semibold mb-2 shadow-[0_0_15px_rgba(220,38,38,0.5)]">
+                <i class="fa-regular fa-clock mr-1"></i> <span id="t-date">12/22 - 12/25 (GMT+8)</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight drop-shadow-lg">
+                <span class="text-gradient-red block text-2xl mb-1" id="t-sub-title">Christmas</span>
+                <span class="text-gradient-gold" id="t-main-title">Carnival</span>
+            </h1>
+            <p class="text-gray-300 text-sm px-4 leading-relaxed mt-4" id="t-desc">
+                Send Christmas gifts to win 10,000 diamonds!
+            </p>
+        </div>
+
+        <!-- User Status Card -->
+        <div class="glass-card rounded-2xl p-6 relative overflow-hidden group">
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-red-600/20 rounded-full blur-3xl group-hover:bg-red-600/30 transition"></div>
+            
+            <div class="relative z-10">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-gift text-red-400"></i>
+                    <span id="t-status-title">Your Status</span>
+                </h3>
+                
+                <div id="user-loading" class="flex items-center gap-2 text-gray-400">
+                    <div class="loader"></div> <span id="t-loading">Checking...</span>
+                </div>
+
+                <div id="user-result" class="hidden">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm text-gray-400" id="t-user-id-label">User ID:</span>
+                        <span class="font-mono text-yellow-400 font-bold" id="display-user-id">--</span>
+                    </div>
+                    <div class="p-3 rounded-lg border flex items-center justify-center gap-2 font-bold text-lg transition-colors duration-300" id="status-box">
+                        <!-- Status text injected via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard Section -->
+        <div class="glass-card rounded-2xl overflow-hidden min-h-[500px]">
+            <!-- Tabs -->
+            <div class="flex border-b border-white/10">
+                <button onclick="switchTab('vote')" id="tab-vote" class="flex-1 py-4 text-sm font-bold text-center relative transition-colors bg-white/5 text-white">
+                    <span id="t-tab-vote">Fan Votes</span>
+                    <div class="active-indicator absolute bottom-0 left-0 w-full h-1 bg-red-500 shadow-[0_0_10px_#ef4444]"></div>
+                </button>
+                <button onclick="switchTab('diamond')" id="tab-diamond" class="flex-1 py-4 text-sm font-bold text-center relative transition-colors text-gray-400 hover:text-gray-200">
+                    <span id="t-tab-diamond">Diamond Rank</span>
+                    <div class="active-indicator absolute bottom-0 left-0 w-full h-1 bg-transparent hidden"></div>
+                </button>
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-4">
+                <!-- Header -->
+                <div class="flex justify-between text-xs text-gray-500 uppercase tracking-wider mb-3 px-2">
+                    <span id="t-col-rank">Rank</span>
+                    <span id="t-col-host">Host</span>
+                    <span id="t-col-score">Score</span>
+                </div>
+
+                <!-- Loading State -->
+                <div id="rank-loading" class="flex flex-col items-center justify-center py-12 text-gray-400 space-y-2">
+                    <div class="loader w-8 h-8"></div>
+                    <p class="text-xs" id="t-loading-rank">Updating Data...</p>
+                </div>
+                
+                <!-- Error State -->
+                <div id="rank-error" class="hidden flex-col items-center justify-center py-8 text-red-400 text-center">
+                    <i class="fa-solid fa-triangle-exclamation text-2xl mb-2"></i>
+                    <p class="text-sm" id="t-error-msg">Failed to load data.</p>
+                </div>
+
+                <!-- List Container -->
+                <div id="rank-list" class="space-y-2 hidden">
+                    <!-- Javascript will populate this -->
+                </div>
+                
+                <!-- Empty State -->
+                <div id="rank-empty" class="hidden text-center py-10 text-gray-500 text-sm">
+                    No data available yet.
+                </div>
+            </div>
+        </div>
+
+        <!-- Rules / Footer -->
+        <div class="text-xs text-gray-500 space-y-2 px-4 leading-relaxed border-t border-white/10 pt-4">
+            <h4 class="font-bold text-gray-400 uppercase mb-1" id="t-rules-title">Campaign Rules</h4>
+            <ul class="list-disc pl-4 space-y-1" id="rules-list">
+                <!-- Rules injected via JS -->
+            </ul>
+        </div>
+
+    </main>
+
+    <!-- Snowflake Container -->
+    <div id="snow-container"></div>
+
+    <script>
+        // --- 1. Translations (i18n) ---
+        const TRANSLATIONS = {
+            tw: {
+                date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
+                subTitle: "聖誕節",
+                mainTitle: "狂歡派對",
+                desc: "送直播間或聊天室任一「聖誕快熱」禮物，抽 50 位幸運兒獲得 10,000 鑽石！",
+                statusTitle: "抽獎資格查詢",
+                loading: "查詢中...",
+                userIdLabel: "用戶 ID:",
+                eligible: "🎉 符合資格",
+                notEligible: "尚未符合",
+                loginReq: "請登入檢視",
+                tabVote: "粉絲票選榜",
+                tabDiamond: "總鑽排行榜",
+                colRank: "排名",
+                colHost: "主播",
+                colScore: "票數 / 鑽石",
+                loadingRank: "數據更新中...",
+                errorMsg: "資料載入失敗，請稍後再試",
+                rulesTitle: "活動說明",
+                rules: [
+                    "僅限送「聖誕快熱」系列禮物，包含直播間與聊天室。",
+                    "主播投票與總鑽榜僅限「喵電感應」禮物 (1禮物=1票，每人對同一主播限投3票)。",
+                    "資料至少需 5 分鐘更新時間。",
+                    "鑽石將於活動結束後 5 個工作日內抽出並發放。",
+                    "資料需登入帳號以正確顯示，最終結果以官方計算為準。"
+                ]
+            },
+            cn: {
+                date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
+                subTitle: "圣诞节",
+                mainTitle: "狂欢派对",
+                desc: "送直播间或聊天室任一“圣诞快热”礼物，抽 50 位幸运儿获得 10,000 钻石！",
+                statusTitle: "抽奖资格查询",
+                loading: "查询中...",
+                userIdLabel: "用户 ID:",
+                eligible: "🎉 符合资格",
+                notEligible: "尚未符合",
+                loginReq: "请登录查看",
+                tabVote: "粉丝票选榜",
+                tabDiamond: "总钻排行榜",
+                colRank: "排名",
+                colHost: "主播",
+                colScore: "票数 / 钻石",
+                loadingRank: "数据更新中...",
+                errorMsg: "数据加载失败，请稍后再试",
+                rulesTitle: "活动说明",
+                rules: [
+                    "仅限送“圣诞快热”系列礼物，包含直播间与聊天室。",
+                    "主播投票与总钻榜仅限“喵电感应”礼物 (1礼物=1票，每人对同一主播限投3票)。",
+                    "数据至少需 5 分钟更新时间。",
+                    "钻石将于活动结束后 5 个工作日内抽出并发放。",
+                    "数据需登录账号以正确显示，最终结果以官方计算为准。"
+                ]
+            },
+            en: {
+                date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
+                subTitle: "Christmas",
+                mainTitle: "Carnival",
+                desc: "Send 'Christmas Heat' gifts for a chance to win 10,000 diamonds (50 winners)!",
+                statusTitle: "Eligibility Check",
+                loading: "Checking...",
+                userIdLabel: "User ID:",
+                eligible: "🎉 Eligible",
+                notEligible: "Not Eligible",
+                loginReq: "Login Required",
+                tabVote: "Fan Vote Rank",
+                tabDiamond: "Diamond Rank",
+                colRank: "Rank",
+                colHost: "Host",
+                colScore: "Votes / Diamonds",
+                loadingRank: "Updating Data...",
+                errorMsg: "Failed to load data, please try again.",
+                rulesTitle: "Campaign Rules",
+                rules: [
+                    "Valid only for 'Christmas Heat' series gifts in live rooms or chat rooms.",
+                    "Rankings are based on 'Meow Telepathy' gifts only (1 Gift = 1 Vote, Max 3 votes per host/user).",
+                    "Data updates with a minimum 5-minute delay.",
+                    "Diamonds will be drawn and distributed within 5 business days after the event.",
+                    "Official calculation is final. Login required to view personal status."
+                ]
+            },
+            jp: {
+                date: "12/22 00:00 - 12/25 23:59 (GMT+8)",
+                subTitle: "クリスマス",
+                mainTitle: "カーニバル",
+                desc: "「クリスマス・ヒート」ギフトを贈って、10,000ダイヤを当てよう（抽選で50名様）！",
+                statusTitle: "抽選資格確認",
+                loading: "確認中...",
+                userIdLabel: "ユーザーID:",
+                eligible: "🎉 資格あり",
+                notEligible: "資格なし",
+                loginReq: "ログインが必要",
+                tabVote: "投票ランキング",
+                tabDiamond: "ダイヤランキング",
+                colRank: "順位",
+                colHost: "ライバー",
+                colScore: "票数 / ダイヤ",
+                loadingRank: "データ更新中...",
+                errorMsg: "データの読み込みに失敗しました。",
+                rulesTitle: "イベント詳細",
+                rules: [
+                    "ライブ配信またはチャットルームでの「クリスマス・ヒート」シリーズギフトのみ対象。",
+                    "ランキングは「ミャオ・テレパシー」ギフトのみ対象（1ギフト=1票、1ライバーにつき最大3票まで）。",
+                    "データの更新には少なくとも5分の遅延があります。",
+                    "ダイヤはイベント終了後5営業日以内に抽選・配布されます。",
+                    "公式の集計結果を最終とします。ステータス確認にはログインが必要です。"
+                ]
+            }
+        };
+
+        // --- 2. State & Config ---
+        const API_URL = "https://swag-campaign-api-905468082258.asia-east1.run.app";
+        let currentLang = 'tw';
+        let currentTab = 'vote'; // 'vote' or 'diamond'
+        let apiData = null; // Store fetched data
+        let userId = null;
+
+        // --- 3. Utilities ---
+
+        // Robust User ID Parser
+        function getUserId() {
+            try {
+                const url = window.location.href;
+                
+                // 1. Check Query Param (?user_id=)
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('user_id')) return urlParams.get('user_id');
+
+                // 2. Check Hash (#user_id=) - Common for simple iframe/spa
+                const hashParams = new URLSearchParams(window.location.hash.substring(1)); // remove #
+                if (hashParams.has('user_id')) return hashParams.get('user_id');
+
+                // 3. Regex Fallback (Brute force search in full string)
+                // Matches user_id= followed by valid characters until & or end of string
+                const regexMatch = url.match(/[?#&]user_id=([a-zA-Z0-9\-_]+)/);
+                if (regexMatch && regexMatch[1]) return regexMatch[1];
+
+            } catch (e) {
+                console.error("ID Parse Error", e);
+            }
+            return null;
+        }
+
+        function createSnowflakes() {
+            const container = document.getElementById('snow-container');
+            const count = 20; // Number of snowflakes
+            for (let i = 0; i < count; i++) {
+                const flake = document.createElement('div');
+                flake.classList.add('snowflake');
+                flake.innerHTML = '•'; // Simple dot
+                flake.style.left = Math.random() * 100 + 'vw';
+                flake.style.animationDuration = (Math.random() * 3 + 5) + 's'; // 5-8s duration
+                flake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                flake.style.opacity = Math.random() * 0.5 + 0.3;
+                flake.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(flake);
+            }
+        }
+
+        // --- 4. Logic & Rendering ---
+
+        function renderText() {
+            const t = TRANSLATIONS[currentLang];
+            
+            // Text Content
+            document.getElementById('t-date').innerText = t.date;
+            document.getElementById('t-sub-title').innerText = t.subTitle;
+            document.getElementById('t-main-title').innerText = t.mainTitle;
+            document.getElementById('t-desc').innerText = t.desc;
+            document.getElementById('t-status-title').innerText = t.statusTitle;
+            document.getElementById('t-loading').innerText = t.loading;
+            document.getElementById('t-user-id-label').innerText = t.userIdLabel;
+            
+            document.getElementById('t-tab-vote').innerText = t.tabVote;
+            document.getElementById('t-tab-diamond').innerText = t.tabDiamond;
+            
+            document.getElementById('t-col-rank').innerText = t.colRank;
+            document.getElementById('t-col-host').innerText = t.colHost;
+            document.getElementById('t-col-score').innerText = t.colScore;
+            
+            document.getElementById('t-loading-rank').innerText = t.loadingRank;
+            document.getElementById('t-error-msg').innerText = t.errorMsg;
+            document.getElementById('t-rules-title').innerText = t.rulesTitle;
+
+            // Rules List
+            const rulesList = document.getElementById('rules-list');
+            rulesList.innerHTML = '';
+            t.rules.forEach(rule => {
+                const li = document.createElement('li');
+                li.innerText = rule;
+                rulesList.appendChild(li);
+            });
+
+            // Re-render status box if data exists
+            if (userId && apiData) updateStatusUI(apiData.user_info);
+            else if (!userId) updateStatusUI(null);
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            
+            // UI Toggle
+            const btnVote = document.getElementById('tab-vote');
+            const btnDiamond = document.getElementById('tab-diamond');
+            
+            // Reset Styles
+            [btnVote, btnDiamond].forEach(btn => {
+                btn.classList.remove('text-white', 'bg-white/5');
+                btn.classList.add('text-gray-400');
+                btn.querySelector('.active-indicator').classList.add('hidden');
+            });
+
+            // Activate Selected
+            const activeBtn = tab === 'vote' ? btnVote : btnDiamond;
+            activeBtn.classList.remove('text-gray-400');
+            activeBtn.classList.add('text-white', 'bg-white/5');
+            activeBtn.querySelector('.active-indicator').classList.remove('hidden');
+
+            renderRankList();
+        }
+
+        function updateStatusUI(userInfo) {
+            const t = TRANSLATIONS[currentLang];
+            const loadingDiv = document.getElementById('user-loading');
+            const resultDiv = document.getElementById('user-result');
+            const displayId = document.getElementById('display-user-id');
+            const statusBox = document.getElementById('status-box');
+
+            loadingDiv.classList.add('hidden');
+            resultDiv.classList.remove('hidden');
+
+            if (!userInfo) {
+                // No User ID (Guest)
+                displayId.innerText = "Guest";
+                statusBox.className = "p-3 rounded-lg border flex items-center justify-center gap-2 font-bold text-lg bg-gray-700/50 border-gray-600 text-gray-400";
+                statusBox.innerHTML = `<i class="fa-solid fa-lock"></i> ${t.loginReq}`;
+                return;
+            }
+
+            displayId.innerText = userInfo.user_id;
+
+            if (userInfo.is_eligible) {
+                statusBox.className = "p-3 rounded-lg border flex items-center justify-center gap-2 font-bold text-lg bg-green-900/40 border-green-500/50 text-green-400 shadow-[0_0_10px_rgba(34,197,94,0.2)]";
+                statusBox.innerHTML = t.eligible;
+            } else {
+                statusBox.className = "p-3 rounded-lg border flex items-center justify-center gap-2 font-bold text-lg bg-red-900/20 border-red-500/30 text-gray-300";
+                statusBox.innerHTML = t.notEligible;
+            }
+        }
+
+        function renderRankList() {
+            const listContainer = document.getElementById('rank-list');
+            const emptyState = document.getElementById('rank-empty');
+            
+            listContainer.innerHTML = '';
+
+            if (!apiData) return;
+
+            const data = currentTab === 'vote' ? apiData.vote_rank_top_20 : apiData.diamond_rank_top_20;
+
+            if (!data || data.length === 0) {
+                listContainer.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            listContainer.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            data.forEach((item) => {
+                // Determine Rank Style
+                let rankClass = "rank-other";
+                let rankText = item.rank;
+                let iconHtml = '';
+                
+                if (item.rank === 1) { rankClass = "rank-1"; iconHtml = '<i class="fa-solid fa-crown text-xs mb-1"></i>'; }
+                else if (item.rank === 2) { rankClass = "rank-2"; }
+                else if (item.rank === 3) { rankClass = "rank-3"; }
+
+                const row = document.createElement('div');
+                row.className = "flex items-center p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition";
+                
+                // Format Number (add commas)
+                const formattedValue = item.value.toLocaleString();
+                
+                row.innerHTML = `
+                    <div class="w-10 flex flex-col items-center justify-center">
+                        ${iconHtml}
+                        <div class="w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold ${rankClass}">
+                            ${rankText}
+                        </div>
+                    </div>
+                    <div class="flex-1 px-3 flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-xs overflow-hidden border border-white/20">
+                            <i class="fa-regular fa-user text-gray-400"></i>
+                        </div>
+                        <span class="font-bold text-sm text-white truncate max-w-[120px]">${item.username}</span>
+                    </div>
+                    <div class="text-right font-mono text-yellow-500 font-bold text-sm">
+                        ${formattedValue}
+                    </div>
+                `;
+                listContainer.appendChild(row);
+            });
+        }
+
+        async function fetchData() {
+            const loadingRank = document.getElementById('rank-loading');
+            const rankError = document.getElementById('rank-error');
+            const rankList = document.getElementById('rank-list');
+            
+            loadingRank.classList.remove('hidden');
+            rankError.classList.add('hidden');
+            rankList.classList.add('hidden');
+
+            // Default dummy ID if none provided, to at least get leaderboard data
+            // The API requires ?user_id=... to return the JSON structure, 
+            // even if we only want the leaderboard.
+            const queryId = userId || "guest_viewer";
+
+            try {
+                // Fetch with credentials: omit (IMPORTANT)
+                const response = await fetch(`${API_URL}/?user_id=${queryId}`, {
+                    method: 'GET',
+                    credentials: 'omit', // Prevents cookie issues in iframes
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) throw new Error(`API Error: ${response.status}`);
+
+                apiData = await response.json();
+                
+                // Update UI
+                loadingRank.classList.add('hidden');
+                
+                // Only update user status UI if we actually have a real user ID
+                if (userId) {
+                    updateStatusUI(apiData.user_info);
+                } else {
+                    updateStatusUI(null);
+                }
+
+                renderRankList();
+
+            } catch (err) {
+                console.error("Fetch Failed:", err);
+                loadingRank.classList.add('hidden');
+                rankError.classList.remove('hidden');
+                document.getElementById('t-error-msg').innerText = `${TRANSLATIONS[currentLang].errorMsg} (${err.message})`;
+                
+                // Still allow trying to render UI states
+                updateStatusUI(null);
+            }
+        }
+
+        function setLang(lang) {
+            currentLang = lang;
+            renderText();
+        }
+
+        // --- 5. Initialization ---
+        window.addEventListener('DOMContentLoaded', () => {
+            createSnowflakes();
+            
+            // 1. Get User ID
+            userId = getUserId();
+            
+            // 2. Initial Render (Text)
+            renderText();
+            
+            // 3. Fetch Data
+            fetchData();
+            
+            // 4. Auto Refresh (every 60s)
+            setInterval(fetchData, 60000);
+        });
+
+    </script>
+</body>
+</html>
