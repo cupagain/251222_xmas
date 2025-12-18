@@ -6,9 +6,7 @@
     <meta name="theme-color" content="#0b1221">
     <title>Christmas Carnival 2025</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -21,6 +19,8 @@
             color: #ffffff;
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
+            /* 🔥 [修復 1] 加回這個屬性，防止 iOS iframe 滾動時拉動到父視窗 */
+            overscroll-behavior-y: none;
         }
 
         .glass-panel {
@@ -132,7 +132,6 @@
 </head>
 <body class="min-h-screen flex flex-col items-center pb-12">
 
-    <!-- Language Switcher -->
     <div class="w-full max-w-lg flex justify-end p-4">
         <div class="flex gap-0.5 bg-slate-800/80 rounded-lg p-1 border border-white/10 backdrop-blur-md">
             <button onclick="setLang('tw')" class="px-3 py-1.5 rounded-md text-xs font-bold transition lang-btn" data-lang="tw">繁</button>
@@ -142,10 +141,8 @@
         </div>
     </div>
 
-    <!-- Main Container -->
     <main class="w-full max-w-lg px-5 flex flex-col gap-6">
 
-        <!-- Header -->
         <div class="text-center mt-2">
             <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-900/40 border border-red-500/30 text-xs text-red-100 font-bold mb-3 tracking-wide shadow-lg">
                 <i class="fa-regular fa-clock"></i> <span id="t-date">12/22 00:00 - 12/25 23:59 (GMT+8)</span>
@@ -155,7 +152,6 @@
             </h1>
         </div>
 
-        <!-- 1. User Campaign Card -->
         <div class="glass-panel rounded-2xl p-5 relative">
             <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-600/30 rounded-full blur-[50px] pointer-events-none"></div>
 
@@ -164,7 +160,6 @@
                 <span id="t-user-title">送禮抽萬鑽</span>
             </h2>
 
-            <!-- Rules -->
             <div class="relative z-10 text-gray-100 text-[15px] leading-relaxed font-medium flex flex-col gap-1.5">
                 <div class="flex items-center flex-wrap">
                     <span id="t-user-rule-L1-pre">送</span>
@@ -184,7 +179,6 @@
                 </div>
             </div>
 
-            <!-- Status & CTA -->
             <div class="mt-5 pt-4 border-t border-white/10 flex flex-col gap-4">
                 <div class="flex items-center justify-between">
                     <span class="text-sm text-gray-300 font-bold" id="t-status-label">抽獎資格</span>
@@ -194,15 +188,12 @@
                     <div id="status-display" class="hidden status-badge"></div>
                 </div>
 
-                <!-- Fix: Use onclick force new tab for iframe compatibility -->
-                <a href="#" onclick="openLink(event, 'https://swag.live/livestream')" class="btn-primary w-full py-2.5 rounded-xl font-bold text-center text-white transition transform active:scale-95 flex items-center justify-center gap-2 text-base cursor-pointer">
+                <a href="https://swag.live/livestream" target="_top" rel="noopener noreferrer" class="btn-primary w-full py-2.5 rounded-xl font-bold text-center text-white transition transform active:scale-95 flex items-center justify-center gap-2 text-base cursor-pointer">
                     <span id="t-btn-go-gift">前往送禮</span> <i class="fa-solid fa-chevron-right text-xs"></i>
                 </a>
             </div>
         </div>
 
-        <!-- 2. Host Campaign & Leaderboard -->
-        <!-- Fix: Removed overflow-hidden from parent to allow list to grow fully -->
         <div class="glass-panel rounded-2xl flex flex-col">
             
             <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-5 border-b border-white/10 relative rounded-t-2xl">
@@ -235,13 +226,11 @@
                     </p>
                 </div>
 
-                <!-- Fix: Use onclick force new tab -->
-                <a href="#" onclick="openLink(event, 'https://creators.swag.live/dec-xmas')" class="mt-5 btn-secondary w-full py-2.5 rounded-lg text-sm font-bold text-center transition block flex items-center justify-center gap-2 cursor-pointer">
+                <a href="https://creators.swag.live/dec-xmas" target="_top" rel="noopener noreferrer" class="mt-5 btn-secondary w-full py-2.5 rounded-lg text-sm font-bold text-center transition block flex items-center justify-center gap-2 cursor-pointer">
                     <span id="t-btn-host-detail">主播獎勵詳情</span> <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                 </a>
             </div>
 
-            <!-- Tabs -->
             <div class="flex border-b border-white/10 bg-slate-900/50">
                 <button onclick="switchTab('vote')" id="tab-vote" class="flex-1 py-3.5 text-sm font-bold text-center relative transition-colors text-white">
                     <span id="t-tab-vote">粉絲票選榜</span>
@@ -253,15 +242,12 @@
                 </button>
             </div>
 
-            <!-- List Header -->
             <div class="flex justify-between px-4 py-2.5 text-[12px] text-gray-400 bg-black/20 font-bold uppercase tracking-wider">
                 <span class="w-10 text-center" id="t-col-rank">排名</span>
                 <span class="flex-1 pl-3" id="t-col-host">主播</span>
                 <span class="text-right" id="t-col-score">票數</span>
             </div>
 
-            <!-- List Content -->
-            <!-- Fix: Increased pb-6 to ensure 20th item is visible -->
             <div class="min-h-[350px] relative bg-slate-900/20 rounded-b-2xl">
                 <div id="rank-loading" class="absolute inset-0 flex flex-col items-center justify-center z-10">
                     <div class="loader w-6 h-6 mb-2"></div>
@@ -272,19 +258,15 @@
                     <span class="text-xs">Data unavailable</span>
                 </div>
                 
-                <!-- Fix: Removed divide-y to prevent last-child issues, increased padding -->
                 <div id="rank-list" class="pb-6">
-                    <!-- Data Rows -->
-                </div>
+                    </div>
             </div>
         </div>
 
-        <!-- 3. Footer Rules -->
         <div class="px-2 pb-6">
             <h4 class="font-bold text-gray-200 mb-3 text-lg" id="t-footer-title">活動規則</h4>
             <ul class="text-[15px] text-gray-300 space-y-2 list-disc pl-5 leading-relaxed marker:text-gray-500" id="rules-list">
-                <!-- Injected via JS -->
-            </ul>
+                </ul>
         </div>
 
     </main>
@@ -490,11 +472,7 @@
             return null;
         }
 
-        // New function to handle link opening robustly
-        function openLink(event, url) {
-            event.preventDefault();
-            window.open(url, '_blank', 'noopener,noreferrer');
-        }
+        // 🔥 [修復 4] 移除了不必要的 openLink 函數，因為已經改回標準 href 寫法
 
         function renderText() {
             const t = TRANSLATIONS[currentLang];
@@ -577,7 +555,8 @@
             loading.classList.add('hidden');
             display.classList.remove('hidden');
 
-            if (apiData.user_info.is_eligible) {
+            // 🔥 [修復 5] 增加 Optional Chaining (?.) 避免 user_info 不存在時報錯
+            if (apiData.user_info?.is_eligible) {
                 display.classList.add('status-ok');
                 display.innerHTML = `<i class="fa-solid fa-check text-[10px]"></i> ${t.eligible}`;
             } else {
@@ -630,8 +609,6 @@
 
             data.forEach((item) => {
                 let rankClass = "rank-other";
-                // Fix: Removed last:border-0 to ensure all items have a bottom border if preferred,
-                // or just rely on consistent border-b. Here we keep border-b for all.
                 let rowClass = "row-normal flex items-center px-4 py-2 hover:bg-white/5 transition border-b border-white/5";
                 
                 if (item.rank <= 10) {
@@ -650,7 +627,7 @@
                 row.className = rowClass;
                 
                 row.innerHTML = `
-                    <div class="w-10 flex justify-center text-sm"> <!-- Fix: w-8 -> w-10 -->
+                    <div class="w-10 flex justify-center text-sm">
                         ${badgeHTML}
                     </div>
                     <div class="flex-1 pl-3 pr-2 overflow-hidden">
