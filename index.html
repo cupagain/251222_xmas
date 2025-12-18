@@ -579,23 +579,40 @@
             renderStatusUI();
         }
 
-        function renderStatusUI() {
+function renderStatusUI() {
             const t = TRANSLATIONS[currentLang];
             const display = document.getElementById('status-display');
+            const loading = document.getElementById('status-loading');
+            
             display.className = "status-badge";
 
+            // 1. 如果沒有 User ID，直接顯示登入提示 (不需要等 API)
             if (!userId) {
+                loading.classList.add('hidden');
                 display.classList.add('status-login');
                 display.innerHTML = `<i class="fa-solid fa-lock text-[10px]"></i> ${t.loginStatus}`;
-            } else if (apiData && apiData.user_info.is_eligible) {
+                display.classList.remove('hidden');
+                return;
+            }
+
+            // 2. 如果有 User ID 但資料尚未載入，保持 Loading 狀態，不顯示結果
+            if (!apiData) {
+                loading.classList.remove('hidden');
+                display.classList.add('hidden');
+                return;
+            }
+
+            // 3. 資料已載入，判定資格
+            loading.classList.add('hidden');
+            display.classList.remove('hidden');
+
+            if (apiData.user_info.is_eligible) {
                 display.classList.add('status-ok');
                 display.innerHTML = `<i class="fa-solid fa-check text-[10px]"></i> ${t.eligible}`;
             } else {
                 display.classList.add('status-no');
                 display.innerHTML = `<i class="fa-solid fa-xmark text-[10px]"></i> ${t.notEligible}`;
             }
-            document.getElementById('status-loading').classList.add('hidden');
-            display.classList.remove('hidden');
         }
 
         function switchTab(tab) {
