@@ -19,8 +19,11 @@
             color: #ffffff;
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
-            /* 🔥 [修復 1] 加回這個屬性，防止 iOS iframe 滾動時拉動到父視窗 */
             overscroll-behavior-y: none;
+            overflow-x: hidden;
+            width: 100%;
+            /* 🔥 [優化 5] 確保底部 padding 包含手機的安全區域 (Home Bar) */
+            padding-bottom: calc(3rem + env(safe-area-inset-bottom)); 
         }
 
         .glass-panel {
@@ -128,9 +131,14 @@
             box-shadow: 0 0 8px #fbbf24;
             transition: all 0.3s ease;
         }
+
+        /* 🔥 [優化 4] 讓列表在 iOS 上的滑動有原生的慣性效果 */
+        #rank-container {
+            -webkit-overflow-scrolling: touch;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center pb-12">
+<body class="min-h-screen flex flex-col items-center">
 
     <div class="w-full max-w-lg flex justify-end p-4">
         <div class="flex gap-0.5 bg-slate-800/80 rounded-lg p-1 border border-white/10 backdrop-blur-md">
@@ -152,7 +160,7 @@
             </h1>
         </div>
 
-        <div class="glass-panel rounded-2xl p-5 relative">
+        <div class="glass-panel rounded-2xl p-5 relative overflow-hidden">
             <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-600/30 rounded-full blur-[50px] pointer-events-none"></div>
 
             <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2 relative z-10">
@@ -188,7 +196,7 @@
                     <div id="status-display" class="hidden status-badge"></div>
                 </div>
 
-                <a href="https://swag.live/livestream" target="_top" rel="noopener noreferrer" class="btn-primary w-full py-2.5 rounded-xl font-bold text-center text-white transition transform active:scale-95 flex items-center justify-center gap-2 text-base cursor-pointer">
+                <a href="https://swag.live/livestream" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 rounded-xl font-bold text-center text-white transition transform active:scale-95 flex items-center justify-center gap-2 text-base cursor-pointer">
                     <span id="t-btn-go-gift">前往送禮</span> <i class="fa-solid fa-chevron-right text-xs"></i>
                 </a>
             </div>
@@ -226,7 +234,7 @@
                     </p>
                 </div>
 
-                <a href="https://creators.swag.live/dec-xmas" target="_top" rel="noopener noreferrer" class="mt-5 btn-secondary w-full py-2.5 rounded-lg text-sm font-bold text-center transition block flex items-center justify-center gap-2 cursor-pointer">
+                <a href="https://creators.swag.live/dec-xmas" target="_blank" rel="noopener noreferrer" class="mt-5 btn-secondary w-full py-2.5 rounded-lg text-sm font-bold text-center transition block flex items-center justify-center gap-2 cursor-pointer">
                     <span id="t-btn-host-detail">主播獎勵詳情</span> <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                 </a>
             </div>
@@ -248,7 +256,7 @@
                 <span class="text-right" id="t-col-score">票數</span>
             </div>
 
-            <div class="min-h-[350px] relative bg-slate-900/20 rounded-b-2xl">
+            <div id="rank-container" class="min-h-[350px] relative bg-slate-900/20 rounded-b-2xl">
                 <div id="rank-loading" class="absolute inset-0 flex flex-col items-center justify-center z-10">
                     <div class="loader w-6 h-6 mb-2"></div>
                     <span class="text-xs text-gray-400" id="t-loading-data">Loading data...</span>
@@ -258,7 +266,7 @@
                     <span class="text-xs">Data unavailable</span>
                 </div>
                 
-                <div id="rank-list" class="pb-6">
+                <div id="rank-list" class="pb-2">
                     </div>
             </div>
         </div>
@@ -277,6 +285,7 @@
         let currentTab = 'vote';
         let apiData = null;
         let userId = null;
+        let fetchInterval = null; // 用來儲存計時器 ID
 
         const TRANSLATIONS = {
             tw: {
@@ -472,8 +481,6 @@
             return null;
         }
 
-        // 🔥 [修復 4] 移除了不必要的 openLink 函數，因為已經改回標準 href 寫法
-
         function renderText() {
             const t = TRANSLATIONS[currentLang];
             
@@ -555,7 +562,6 @@
             loading.classList.add('hidden');
             display.classList.remove('hidden');
 
-            // 🔥 [修復 5] 增加 Optional Chaining (?.) 避免 user_info 不存在時報錯
             if (apiData.user_info?.is_eligible) {
                 display.classList.add('status-ok');
                 display.innerHTML = `<i class="fa-solid fa-check text-[10px]"></i> ${t.eligible}`;
@@ -607,6 +613,9 @@
                 return;
             }
 
+            // 🔥 [優化 2] 使用 DocumentFragment 進行一次性 DOM 更新，提升效能
+            const fragment = document.createDocumentFragment();
+
             data.forEach((item) => {
                 let rankClass = "rank-other";
                 let rowClass = "row-normal flex items-center px-4 py-2 hover:bg-white/5 transition border-b border-white/5";
@@ -637,8 +646,10 @@
                         ${item.value.toLocaleString()}
                     </div>
                 `;
-                listContainer.appendChild(row);
+                fragment.appendChild(row);
             });
+            
+            listContainer.appendChild(fragment);
         }
 
         async function fetchData() {
@@ -668,11 +679,29 @@
             renderRankList();
         }
 
+        // 🔥 [優化 3] 頁面不可見時暫停請求，節省流量與電量
+        function handleVisibilityChange() {
+            if (document.hidden) {
+                if (fetchInterval) {
+                    clearInterval(fetchInterval);
+                    fetchInterval = null;
+                }
+            } else {
+                if (!fetchInterval) {
+                    fetchData(); // 立即更新一次
+                    fetchInterval = setInterval(fetchData, 60000);
+                }
+            }
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             userId = getUserId();
             renderText();
             fetchData();
-            setInterval(fetchData, 60000);
+            fetchInterval = setInterval(fetchData, 60000);
+            
+            // 監聽頁面可見度變化
+            document.addEventListener('visibilitychange', handleVisibilityChange);
         });
     </script>
 </body>
