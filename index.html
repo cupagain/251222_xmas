@@ -22,7 +22,6 @@
             overscroll-behavior-y: none;
             overflow-x: hidden;
             width: 100%;
-            /* 🔥 [優化 5] 確保底部 padding 包含手機的安全區域 (Home Bar) */
             padding-bottom: calc(3rem + env(safe-area-inset-bottom)); 
         }
 
@@ -132,7 +131,6 @@
             transition: all 0.3s ease;
         }
 
-        /* 🔥 [優化 4] 讓列表在 iOS 上的滑動有原生的慣性效果 */
         #rank-container {
             -webkit-overflow-scrolling: touch;
         }
@@ -324,6 +322,7 @@
                 rules: [
                     "僅限送「聖誕快熱」系列禮物，方符合抽獎資格，禮物包含直播間與聊天室。",
                     "主播投票與總鑽榜僅計算「喵電感應」禮物。",
+                    "投票與總鑽同名時，以投票與送鑽人數排名。詳情請點擊主播獎勵查看。"
                     "資料至少需 5 分鐘更新時間。",
                     "抽獎鑽石將於活動結束後 5 個工作日內抽出並發放。",
                     "最終結果以官方計算為準。"
@@ -365,6 +364,7 @@
                 rules: [
                     "仅限送“圣诞快热”系列礼物，方符合抽奖资格，礼物包含直播间与聊天室。",
                     "主播投票与总钻榜仅计算“喵电感应”礼物。",
+                    "投票与总钻同名时，以投票与送钻人数排名。详情请点击主播奖励查看。",
                     "数据至少需 5 分钟更新时间。",
                     "抽奖钻石将于活动结束后 5 个工作日内抽出并发放。",
                     "最终结果以官方计算为准。"
@@ -406,6 +406,7 @@
                 rules: [
                     "Only 'Happy Xmas' series gifts qualify. Includes Live & Chat gifts.",
                     "Host Rankings only calculate 'Christmas wreath' gifts.",
+                    "When votes and diamonds tie, rank by voters + gifters. View Reward Details."
                     "Data updates with 5-min delay.",
                     "Prize diamonds will be distributed within 5 business days after event.",
                     "Official calculation is final."
@@ -447,6 +448,7 @@
                 rules: [
                     "「メリークリスマス」シリーズのみ対象。ライブ・チャット含む。",
                     "各ランキングは「クリスマスリース」のみ集計します。",
+                    "投票数・総ダイヤ同値時、投票者＋ギフト者数で順位決定。詳細は主播報酬をクリック。",
                     "データ更新には約5分の遅延があります。",
                     "賞品ダイヤは終了後5営業日以内に配布されます。",
                     "公式の集計を最終とします。"
@@ -454,22 +456,11 @@
             }
         };
 
-        // 🔥 [解決 1] 智慧跳轉函數：優先嘗試跳出父框架，失敗才嘗試新分頁，最後才在原 iframe 跳轉
-           function smartNavigate(url) {
-            // 1. 嘗試開啟新分頁 (New Tab)
-            // 使用 '_blank' 讓瀏覽器開新視窗，noopener,noreferrer 保護安全性
+        function smartNavigate(url) {
             const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
-
-            // 2. 檢測是否成功開啟
-            // 如果 newWindow 存在且沒有被關閉，代表成功
             if (newWindow && !newWindow.closed && typeof newWindow.closed !== "undefined") {
-                // 成功開啟新分頁，什麼都不用做，讓原頁面保留不動
                 return;
             }
-
-            // 3. 如果執行到這裡，代表被瀏覽器擋住了 (Popup Blocked)
-            // 為了達成您的需求「保留本來的 iframe 頁面不動」，這裡我們不執行 window.location.href
-            // 而是改為顯示提示，請使用者手動操作
             alert('瀏覽器阻擋了彈跳視窗，請長按按鈕並選擇「在新分頁中開啟」');
         }
 
@@ -632,7 +623,6 @@
                 return;
             }
 
-            // 🔥 [優化 2] 使用 DocumentFragment 進行一次性 DOM 更新，提升效能
             const fragment = document.createDocumentFragment();
 
             data.forEach((item) => {
@@ -651,15 +641,24 @@
                 else if (item.rank === 2) badgeHTML = `<div class="rank-badge rank-2">${item.rank}</div>`;
                 else if (item.rank === 3) badgeHTML = `<div class="rank-badge rank-3">${item.rank}</div>`;
 
+                const profileUrl = `https://swag.live/u/${item.username}`;
+
                 const row = document.createElement('div');
                 row.className = rowClass;
                 
+                // Modified: User Name now clickable using smartNavigate
                 row.innerHTML = `
                     <div class="w-10 flex justify-center text-sm">
                         ${badgeHTML}
                     </div>
                     <div class="flex-1 pl-3 pr-2 overflow-hidden">
-                        <div class="text-sm font-bold text-gray-100 truncate">${item.username}</div>
+                        <div 
+                            onclick="smartNavigate('${profileUrl}')"
+                            class="text-sm font-bold text-gray-100 truncate cursor-pointer hover:text-white hover:underline transition-colors flex items-center gap-1"
+                        >
+                            ${item.username}
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-gray-500"></i>
+                        </div>
                     </div>
                     <div class="text-right font-mono font-bold text-white text-sm">
                         ${item.value.toLocaleString()}
@@ -698,7 +697,6 @@
             renderRankList();
         }
 
-        // 🔥 [優化 3] 頁面不可見時暫停請求，節省流量與電量
         function handleVisibilityChange() {
             if (document.hidden) {
                 if (fetchInterval) {
@@ -707,7 +705,7 @@
                 }
             } else {
                 if (!fetchInterval) {
-                    fetchData(); // 立即更新一次
+                    fetchData(); 
                     fetchInterval = setInterval(fetchData, 60000);
                 }
             }
@@ -719,7 +717,6 @@
             fetchData();
             fetchInterval = setInterval(fetchData, 60000);
             
-            // 監聽頁面可見度變化
             document.addEventListener('visibilitychange', handleVisibilityChange);
         });
     </script>
